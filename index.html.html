@@ -1350,15 +1350,15 @@ footer{background:var(--N900);padding:72px 0 40px;border-top:1px solid var(--GL)
       <form class="cta-form" onsubmit="return false">
         <div class="cf-field">
           <label class="cf-label">Họ và tên</label>
-          <input class="cf-input" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
+          <input id="cf-name" class="cf-input" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
         </div>
         <div class="cf-field">
           <label class="cf-label">Số điện thoại</label>
-          <input class="cf-input" type="tel" placeholder="09xx xxx xxx" autocomplete="tel">
+          <input id="cf-phone" class="cf-input" type="tel" placeholder="09xx xxx xxx" autocomplete="tel">
         </div>
         <div class="cf-field">
           <label class="cf-label">Nhu cầu</label>
-          <select class="cf-select">
+          <select id="cf-need" class="cf-select">
             <option value="">Chọn dịch vụ</option>
             <option>Pháp lý BĐS Doanh nghiệp</option>
             <option>Pháp lý BĐS Cá nhân</option>
@@ -1368,12 +1368,13 @@ footer{background:var(--N900);padding:72px 0 40px;border-top:1px solid var(--GL)
         </div>
       </form>
       <div class="cta-lower">
-        <button class="cf-submit">Gửi Yêu Cầu Thẩm Định</button>
+        <button id="cf-btn" class="cf-submit">Gửi Yêu Cầu Thẩm Định</button>
         <div class="cta-btns">
           <a href="mailto:contact@lexfin.vn" class="btn-ghost">Gửi Hồ Sơ Email</a>
           <a href="#" class="btn-gold">Thẩm Định 24h →</a>
         </div>
       </div>
+      <p id="cf-msg" style="font-size:13px;font-weight:300;letter-spacing:.03em;margin-top:14px;min-height:18px"></p>
     </div>
   </div>
 </section>
@@ -1724,6 +1725,51 @@ function closeModal(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+
+/* Contact form submit */
+document.getElementById('cf-btn').addEventListener('click', async function(){
+  const name  = document.getElementById('cf-name').value.trim();
+  const phone = document.getElementById('cf-phone').value.trim();
+  const need  = document.getElementById('cf-need').value;
+  const msg   = document.getElementById('cf-msg');
+  const btn   = this;
+
+  if(!name || !phone){
+    msg.textContent = 'Vui lòng điền họ tên và số điện thoại.';
+    msg.style.color = '#e07070';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Đang gửi...';
+  msg.textContent = '';
+
+  try {
+    const res = await fetch('https://lexfincapital.app.n8n.cloud/webhook/lexfin-contact', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        ho_ten: name,
+        so_dien_thoai: phone,
+        nhu_cau: need,
+        source: 'website',
+        timestamp: new Date().toISOString()
+      })
+    });
+    if(res.ok){
+      msg.textContent = 'Đã gửi! LexFin sẽ phản hồi trong 24h.';
+      msg.style.color = '#C8A84B';
+      btn.textContent = 'Đã Gửi ✓';
+    } else {
+      throw new Error('server');
+    }
+  } catch(e){
+    msg.textContent = 'Gửi thất bại, vui lòng thử lại.';
+    msg.style.color = '#e07070';
+    btn.disabled = false;
+    btn.textContent = 'Gửi Yêu Cầu Thẩm Định';
+  }
+});
 </script>
 </body>
 </html>
