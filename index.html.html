@@ -533,26 +533,92 @@ nav.light .ham span{background:var(--N700)}
 .proc-desc{font-size:14px;font-weight:300;color:var(--M);line-height:1.85;padding-top:3px}
 
 /* ═══════════════════════════════════════════
-   INSIGHTS
+   INSIGHTS — editorial
 ═══════════════════════════════════════════ */
 .insight-list{display:flex;flex-direction:column}
-.insight{
-  display:grid;grid-template-columns:1fr auto;gap:48px;
-  padding:36px 0;border-bottom:1px solid var(--DD);align-items:center;
-  transition:background .2s;
+.ins-row{padding:36px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.ins-row:first-child{border-top:1px solid rgba(255,255,255,.1)}
+.ins-meta{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:#C8A84B;margin-bottom:14px;
 }
-.insight:first-child{border-top:1px solid var(--DD)}
-.ins-cat{
-  display:flex;align-items:center;gap:10px;
-  font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--G500);margin-bottom:8px;
+.ins-title-txt{
+  font-family:'Be Vietnam Pro',sans-serif;font-size:22px;font-weight:700;
+  color:#FAFAF7;letter-spacing:-.01em;line-height:1.2;margin-bottom:12px;
 }
-.ins-cat::before{content:'';width:16px;height:1.5px;background:var(--G500);display:block}
-.ins-title{
-  font-family:'Be Vietnam Pro',sans-serif;font-size:clamp(16px,1.7vw,20px);font-weight:700;
-  color:var(--W);margin-bottom:6px;letter-spacing:-.01em;line-height:1.25;
+.ins-excerpt{
+  font-size:15px;font-weight:300;color:rgba(250,250,247,.6);
+  line-height:1.6;margin-bottom:18px;
 }
-.ins-code{font-family:'DM Mono',monospace;font-size:10px;color:rgba(150,170,203,.4);letter-spacing:.08em}
+.ins-read{
+  font-family:'DM Mono',monospace;font-size:13px;color:#C8A84B;
+  background:none;border:none;padding:0;cursor:pointer;text-decoration:none;display:inline;
+}
+.ins-read:hover{text-decoration:underline}
+
+/* ═══════════════════════════════════════════
+   INSIGHT MODALS
+═══════════════════════════════════════════ */
+.ins-modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .3s,visibility .3s;
+}
+.ins-modal-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
+.ins-modal-box{
+  background:#0D1E47;border:1px solid rgba(200,168,75,.3);
+  border-radius:8px;width:100%;max-width:680px;
+  max-height:80vh;display:flex;flex-direction:column;position:relative;
+}
+.ins-modal-close{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;border:1px solid rgba(200,168,75,.3);
+  background:transparent;color:rgba(150,170,203,.6);
+  border-radius:50%;cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;z-index:1;line-height:1;
+}
+.ins-modal-close:hover{border-color:#C8A84B;color:#C8A84B}
+.ins-modal-scroll{overflow-y:auto;padding:40px;flex:1;min-height:0}
+.ins-modal-cat{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:#C8A84B;display:block;margin-bottom:6px;
+}
+.ins-modal-date{
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:rgba(150,170,203,.5);letter-spacing:.08em;display:block;margin-bottom:20px;
+}
+.ins-modal-title{
+  font-family:'Be Vietnam Pro',sans-serif;font-size:24px;font-weight:700;
+  color:#FAFAF7;line-height:1.2;letter-spacing:-.01em;margin-bottom:0;
+}
+.ins-modal-divider{border:none;border-top:1px solid rgba(200,168,75,.2);margin:24px 0 28px}
+.ins-modal-body{font-size:15px;font-weight:300;color:rgba(250,250,247,.85);line-height:1.9}
+.ins-modal-body p{margin-bottom:14px}
+.ins-modal-body strong{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:400;
+  color:#C8A84B;letter-spacing:.1em;text-transform:uppercase;
+  display:block;margin:24px 0 10px;
+}
+.ins-modal-body b{color:rgba(250,250,247,.95);font-style:normal}
+.ins-modal-body .ins-attr{color:rgba(150,170,203,.4);font-size:12px;margin-top:24px}
+.ins-modal-footer{border-top:1px solid rgba(200,168,75,.2);margin-top:32px;padding-top:24px}
+.ins-modal-cta{
+  display:block;width:100%;background:#C8A84B;color:#06102A;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;text-align:center;
+  padding:16px;border:none;cursor:pointer;border-radius:2px;
+  text-decoration:none;transition:background .2s;box-sizing:border-box;
+}
+.ins-modal-cta:hover{background:#DFC068}
+@media(max-width:600px){
+  .ins-title-txt{font-size:18px}
+  .ins-modal-overlay{padding:0 16px;align-items:center}
+  .ins-modal-box{max-height:88vh}
+  .ins-modal-scroll{padding:24px}
+  .ins-modal-close{top:12px;right:12px}
+}
 
 /* ═══════════════════════════════════════════
    CTA
@@ -780,7 +846,6 @@ footer{background:var(--N900);padding:72px 0 40px;border-top:1px solid var(--GL)
   .mtr:nth-child(odd){border-right:1px solid var(--DD);padding-left:0}
   .mtr:nth-child(even){border-right:none;padding-left:20px}
   .mtr:nth-child(3){border-right:none;padding-left:0}
-  .insight{grid-template-columns:1fr;gap:14px}
   .proc{grid-template-columns:1fr;gap:8px}
   .proc-n{display:none}
   .proc-desc{grid-column:1}
@@ -1311,34 +1376,130 @@ footer{background:var(--N900);padding:72px 0 40px;border-top:1px solid var(--GL)
       <h2 class="t-h2" style="color:var(--W)">Báo Cáo<br><span class="gold-accent">Chuyên Sâu.</span></h2>
     </div>
     <div class="insight-list">
-      <div class="insight r">
-        <div>
-          <div class="ins-cat">Pháp Lý BĐS</div>
-          <h3 class="ins-title">5 Điểm Vướng Mắc Thường Gặp Nhất Trong Hồ Sơ 1/500</h3>
-          <span class="ins-code">LFC-REP-2025-01</span>
-        </div>
-        <a href="#contact" class="btn-outline-dark">↓ Tải PDF</a>
+      <div class="ins-row r">
+        <div class="ins-meta">PHÁP LÝ BĐS &nbsp;·&nbsp; 6 phút đọc &nbsp;·&nbsp; LFC-INS-2026-01</div>
+        <div class="ins-title-txt">5 Điểm Vướng Mắc Pháp Lý 1/500 Thường Gặp — Và Cách Xử Lý Thực Tế</div>
+        <p class="ins-excerpt">Từ hơn 200 hồ sơ dự án đã thẩm định, LexFin ghi nhận 5 điểm nghẽn pháp lý xuất hiện lặp lại nhiều nhất trong các dự án quy hoạch 1/500 tại TP.HCM và vùng ven.</p>
+        <button class="ins-read" onclick="openInsModal('ins-modal-1')">Đọc tiếp →</button>
       </div>
-      <div class="insight r">
-        <div>
-          <div class="ins-cat">Tài Chính Ngân Hàng</div>
-          <h3 class="ins-title">Tối Ưu DSCR Để Tăng Hạn Mức Vay 20–30%</h3>
-          <span class="ins-code">LFC-REP-2025-02</span>
-        </div>
-        <a href="#contact" class="btn-outline-dark">↓ Tải PDF</a>
+      <div class="ins-row r d1">
+        <div class="ins-meta">TÀI CHÍNH NGÂN HÀNG &nbsp;·&nbsp; 4 phút đọc &nbsp;·&nbsp; LFC-INS-2026-02</div>
+        <div class="ins-title-txt">DSCR 1.2x — Ngân Hàng Đọc Con Số Này Như Thế Nào?</div>
+        <p class="ins-excerpt">DSCR không chỉ là một tỷ lệ — đó là ngôn ngữ mà ngân hàng dùng để quyết định có tin tưởng dòng tiền của bạn đủ để giải ngân hay không.</p>
+        <button class="ins-read" onclick="openInsModal('ins-modal-2')">Đọc tiếp →</button>
       </div>
-      <div class="insight r">
-        <div>
-          <div class="ins-cat">Deal Structure</div>
-          <h3 class="ins-title">Mô Hình 2→1: Xử Lý Song Song Pháp Lý & Tài Chính</h3>
-          <span class="ins-code">LFC-REP-2025-03</span>
-        </div>
-        <a href="#contact" class="btn-outline-dark">↓ Tải PDF</a>
+      <div class="ins-row r d2">
+        <div class="ins-meta">DEAL STRUCTURE &nbsp;·&nbsp; 6 phút đọc &nbsp;·&nbsp; LFC-INS-2026-03</div>
+        <div class="ins-title-txt">CLN → Đất Ở: Lộ Trình Chuyển Đổi Mục Đích Sử Dụng Đất Thực Tế 2026</div>
+        <p class="ins-excerpt">Chuyển đất CLN sang đất ở không chỉ là thủ tục hành chính — đây là bước pháp lý quyết định toàn bộ giá trị và khả năng huy động vốn của tài sản.</p>
+        <button class="ins-read" onclick="openInsModal('ins-modal-3')">Đọc tiếp →</button>
       </div>
     </div>
   </div>
 </section>
 
+
+<!-- INSIGHT MODAL 1 -->
+<div class="ins-modal-overlay" id="ins-modal-1" onclick="if(event.target===this)closeInsModal()">
+  <div class="ins-modal-box">
+    <button class="ins-modal-close" onclick="closeInsModal()" aria-label="Đóng">✕</button>
+    <div class="ins-modal-scroll">
+      <span class="ins-modal-cat">Pháp Lý BĐS</span>
+      <span class="ins-modal-date">28/05/2026 · LFC-INS-2026-01 · 6 phút đọc</span>
+      <h3 class="ins-modal-title">5 Điểm Vướng Mắc Pháp Lý 1/500 Thường Gặp — Và Cách Xử Lý Thực Tế</h3>
+      <hr class="ins-modal-divider">
+      <div class="ins-modal-body">
+        <p>Từ hơn 200 hồ sơ dự án đã thẩm định, LexFin Capital ghi nhận 5 điểm nghẽn pháp lý xuất hiện lặp lại nhiều nhất trong các dự án quy hoạch 1/500 tại TP.HCM và vùng ven. Trung bình mỗi điểm nghẽn làm trễ tiến độ 6–12 tuần nếu không được phát hiện sớm.</p>
+        <strong>1. Quy Hoạch Chưa Khớp Với Thực Địa</strong>
+        <p>Bản đồ 1/500 được duyệt nhưng ranh giới thực địa lệch so với hồ sơ GPXD — thường do đo đạc cũ chưa cập nhật sau khi địa phương điều chỉnh lộ giới. Lỗi này xuất hiện trong 40% hồ sơ LexFin tiếp nhận.</p>
+        <p><b>Rủi ro:</b> GPXD bị trả hồ sơ, phải đo đạc lại từ đầu, mất 8–12 tuần.<br><b>Fix:</b> Đối chiếu bản đồ địa chính cập nhật tại Văn phòng Đăng ký Đất đai trước khi nộp — bước này mất 3 ngày nhưng tiết kiệm 3 tháng.</p>
+        <strong>2. GCN Chưa Tách Thửa Đúng Theo Quy Hoạch</strong>
+        <p>Nhiều dự án có GCN tổng thể nhưng chưa tách thửa theo từng lô theo bản vẽ 1/500. Ngân hàng và cơ quan thẩm định bắt buộc yêu cầu tách thửa trước khi xử lý tiếp — không ngoại lệ.</p>
+        <p><b>Rủi ro:</b> Toàn bộ hồ sơ vay vốn bị treo cho đến khi tách thửa xong. Timeline tách thửa tại TP.HCM hiện tại: 6–10 tuần.<br><b>Fix:</b> Triển khai hồ sơ tách thửa song song ngay từ giai đoạn NCKT — không chờ GPXD xong mới làm.</p>
+        <strong>3. Phần Đất Vướng GPMB Chưa Có Quyết Định Chính Thức</strong>
+        <p>Một số thửa trong dự án nằm trong diện quy hoạch đường hoặc hạ tầng công cộng nhưng chưa có quyết định GPMB chính thức. Chủ đầu tư không biết, vẫn tính vào tổng diện tích dự án.</p>
+        <p><b>Rủi ro:</b> Phần diện tích GPMB không được ngân hàng tính vào tài sản đảm bảo, LTV thực tế thấp hơn dự kiến 15–25%.<br><b>Fix:</b> Tra cứu quyết định GPMB tại UBND phường/xã trước khi định giá — bắt buộc trong checklist thẩm định của LexFin.</p>
+        <strong>4. Mục Đích Sử Dụng Đất Chưa Chuyển Đổi</strong>
+        <p>Đất CLN, ONT hoặc BHK chưa chuyển sang đất ở đô thị (ODT) hoặc đất thương mại dịch vụ theo chức năng quy hoạch 1/500. Đây là điều kiện tiên quyết — ngân hàng không giải ngân trên đất chưa chuyển mục đích dù quy hoạch đã được duyệt.</p>
+        <p><b>Rủi ro:</b> Chủ đầu tư đã chi tiền san lấp, xây dựng hạ tầng nhưng không huy động được vốn ngân hàng vì GCN chưa cập nhật mục đích mới.<br><b>Fix:</b> Hoàn thiện thủ tục chuyển mục đích sử dụng đất song song với quá trình phê duyệt 1/500.</p>
+        <strong>5. Thiếu Văn Bản Chấp Thuận Chủ Trương Đầu Tư</strong>
+        <p>Theo Luật Đầu tư 2020, dự án có quy mô từ 20ha trở lên hoặc thuộc lĩnh vực nhà ở thương mại bắt buộc phải có văn bản chấp thuận chủ trương đầu tư từ UBND TP.HCM trước khi triển khai.</p>
+        <p><b>Rủi ro:</b> Dự án có thể bị đình chỉ, toàn bộ chi phí đã đầu tư không được bảo vệ pháp lý.<br><b>Fix:</b> Không thể bỏ qua — đây là bước bắt buộc đầu tiên trong pipeline pháp lý của LexFin trước khi tư vấn bất kỳ bước nào tiếp theo.</p>
+        <p class="ins-attr">— LexFin Capital | Thẩm định thực tế, từng bước rõ ràng.</p>
+      </div>
+      <div class="ins-modal-footer">
+        <button class="ins-modal-cta" onclick="closeInsModal();setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'})},300)">Thẩm Định Hồ Sơ Của Bạn →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHT MODAL 2 -->
+<div class="ins-modal-overlay" id="ins-modal-2" onclick="if(event.target===this)closeInsModal()">
+  <div class="ins-modal-box">
+    <button class="ins-modal-close" onclick="closeInsModal()" aria-label="Đóng">✕</button>
+    <div class="ins-modal-scroll">
+      <span class="ins-modal-cat">Tài Chính Ngân Hàng</span>
+      <span class="ins-modal-date">28/05/2026 · LFC-INS-2026-02 · 4 phút đọc</span>
+      <h3 class="ins-modal-title">DSCR 1.2x — Ngân Hàng Đọc Con Số Này Như Thế Nào?</h3>
+      <hr class="ins-modal-divider">
+      <div class="ins-modal-body">
+        <p>DSCR (Debt Service Coverage Ratio) = Thu nhập ròng từ hoạt động ÷ Tổng nghĩa vụ nợ trong kỳ.</p>
+        <p>Ví dụ thực tế: Doanh nghiệp doanh thu 12 tỷ/năm, chi phí hoạt động 8 tỷ, thu nhập ròng 4 tỷ. Khoản vay 20 tỷ lãi suất 9%/năm, kỳ hạn 5 năm → nghĩa vụ nợ hàng năm khoảng 5.1 tỷ. DSCR = 4 ÷ 5.1 = 0.78x → Ngân hàng từ chối ngay.</p>
+        <strong>Các Ngưỡng Thực Tế Tại Ngân Hàng Việt Nam</strong>
+        <p>· DSCR &lt; 1.0x: Dòng tiền không đủ trả nợ → từ chối, không thương lượng<br>· DSCR 1.0x–1.2x: Vùng xám — cần tài sản đảm bảo rất mạnh, lịch sử CIC sạch<br>· DSCR 1.2x–1.5x: Ngưỡng chuẩn — hồ sơ được xem xét bình thường<br>· DSCR &gt; 1.5x: Dòng tiền tốt — có cơ sở đàm phán lãi suất ưu đãi và nới LTV</p>
+        <strong>Lỗi Phổ Biến Nhất: Tự Tính DSCR Sai</strong>
+        <p>Trong thực tế LexFin ghi nhận: 6/10 khách hàng tự tính DSCR đạt 1.3x–1.5x nhưng khi ngân hàng tính lại chỉ còn 0.8x–1.0x. Nguyên nhân:</p>
+        <p>· Ngân hàng loại các khoản thu nhập không có chứng từ hợp lệ (hóa đơn đỏ, hợp đồng ký kết)<br>· Ngân hàng cộng thêm các khoản nợ đang có tại tổ chức tín dụng khác (tra CIC)<br>· Ngân hàng áp dụng stress test: tính DSCR ở mức lãi suất +1.5–2% so với hiện tại<br>· Một số ngân hàng không công nhận doanh thu từ giao dịch nội bộ hoặc liên công ty</p>
+        <strong>4 Bước Tối Ưu DSCR Trước Khi Nộp Hồ Sơ</strong>
+        <p>1. Chuẩn hóa báo cáo tài chính 2 năm gần nhất — có kiểm toán độc lập nếu có thể<br>2. Tách biệt dòng tiền dự án khỏi dòng tiền cá nhân và công ty mẹ<br>3. Bổ sung hợp đồng cho thuê, hợp đồng bán hàng dài hạn làm bằng chứng dòng tiền tương lai<br>4. Chuẩn bị sensitivity analysis: DSCR ở các kịch bản lãi suất +1%, +2%, doanh thu -10%, -20%</p>
+        <p>Ngân hàng không chỉ nhìn con số hiện tại — họ nhìn khả năng chịu đựng rủi ro trong tương lai.</p>
+        <p class="ins-attr">— LexFin Capital | Số liệu thật, không phỏng đoán.</p>
+      </div>
+      <div class="ins-modal-footer">
+        <button class="ins-modal-cta" onclick="closeInsModal();setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'})},300)">Thẩm Định Hồ Sơ Của Bạn →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHT MODAL 3 -->
+<div class="ins-modal-overlay" id="ins-modal-3" onclick="if(event.target===this)closeInsModal()">
+  <div class="ins-modal-box">
+    <button class="ins-modal-close" onclick="closeInsModal()" aria-label="Đóng">✕</button>
+    <div class="ins-modal-scroll">
+      <span class="ins-modal-cat">Deal Structure</span>
+      <span class="ins-modal-date">28/05/2026 · LFC-INS-2026-03 · 6 phút đọc</span>
+      <h3 class="ins-modal-title">CLN → Đất Ở: Lộ Trình Chuyển Đổi Mục Đích Sử Dụng Đất Thực Tế 2026</h3>
+      <hr class="ins-modal-divider">
+      <div class="ins-modal-body">
+        <p>Luật Đất đai 2024 (hiệu lực 01/08/2024) và bảng giá đất mới đã thay đổi đáng kể chi phí và quy trình chuyển mục đích. Tiền sử dụng đất tại nhiều khu vực TP.HCM và vùng ven tăng 2–4 lần so với bảng giá cũ — đây là rủi ro tài chính lớn nhất cần tính vào cấu trúc deal ngay từ đầu.</p>
+        <strong>Lưu Ý Quan Trọng: Thay Đổi Hành Chính 2025</strong>
+        <p>Từ 01/07/2025, TP.HCM vận hành mô hình chính quyền 2 cấp (TP.HCM và phường/xã) — không còn cấp huyện. Sở Tài nguyên và Môi trường đã đổi tên thành Sở Nông nghiệp và Môi trường (Sở NN&amp;MT TP.HCM). Kiểm tra thẩm quyền tiếp nhận hồ sơ tại địa bàn cụ thể trước khi nộp.</p>
+        <strong>Bước 1 — Xác Định Khả Năng Chuyển Đổi (1–2 tuần)</strong>
+        <p>Không phải đất CLN nào cũng chuyển được sang đất ở. Kiểm tra bắt buộc:</p>
+        <p>· Thửa đất có nằm trong quy hoạch đất ở theo bản đồ KHSDĐ không?<br>· Có vướng quy hoạch đường, công viên, hành lang an toàn không?<br>· Diện tích còn lại sau khi trừ lộ giới có đủ diện tích tối thiểu tách thửa không?</p>
+        <p>Tra cứu tại: UBND phường/xã hoặc Sở NN&amp;MT TP.HCM.<br><b>Cảnh báo:</b> Nhiều trường hợp đất CLN nằm đúng vùng quy hoạch đất ở nhưng vẫn không chuyển được vì vướng quy hoạch hạ tầng kỹ thuật chưa công bố rộng rãi. Phải tra cứu trực tiếp, không chỉ dựa vào bản đồ online.</p>
+        <strong>Bước 2 — Nộp Hồ Sơ Chuyển Mục Đích (4–8 tuần)</strong>
+        <p>Hồ sơ gồm: đơn xin chuyển mục đích, GCN gốc, bản đồ địa chính, giấy tờ nhân thân/pháp nhân, bản vẽ hiện trạng.</p>
+        <p>· Hộ gia đình, cá nhân: nộp tại UBND phường/xã nơi có đất<br>· Tổ chức, doanh nghiệp: nộp tại Sở NN&amp;MT TP.HCM</p>
+        <p><b>Lưu ý 2026:</b> Hồ sơ nộp trước 01/08/2024 nhưng chưa được phê duyệt có thể phải bổ sung theo yêu cầu Luật Đất đai 2024 — kiểm tra trạng thái hồ sơ ngay nếu đang trong tình huống này.</p>
+        <strong>Bước 3 — Thực Hiện Nghĩa Vụ Tài Chính (2–4 tuần)</strong>
+        <p>Sau khi có thông báo nộp tiền từ cơ quan thuế, phải hoàn thành trong thời hạn quy định — thường 30 ngày, gia hạn tối đa 1 lần.</p>
+        <p><b>Con số thực tế cần dự phòng:</b> Tại các khu vực ven TP.HCM (Bình Chánh, Hóc Môn, Củ Chi), tiền SDĐ cho lô đất 500m² hiện dao động 800 triệu – 2.5 tỷ đồng tùy vị trí. Khoản chi này bắt buộc, không thương lượng — phải được tính vào cấu trúc tài chính từ ngày 1.</p>
+        <strong>Bước 4 — Cập Nhật GCN (2–3 tuần)</strong>
+        <p>Sau khi hoàn thành nghĩa vụ tài chính, Văn phòng Đăng ký Đất đai cập nhật mục đích sử dụng trên GCN. Thửa đất chính thức thành đất ở — đủ điều kiện thế chấp ngân hàng và triển khai dự án xây dựng.</p>
+        <strong>Tổng Kết Timeline</strong>
+        <p>Bước 1 — Xác định: 1–2 tuần | Phí đo đạc 5–15 triệu<br>Bước 2 — Nộp hồ sơ: 4–8 tuần | Phí hành chính 1–3 triệu<br>Bước 3 — Nghĩa vụ tài chính: 2–4 tuần | 800 triệu – 2.5 tỷ (tùy vị trí)<br>Bước 4 — Cập nhật GCN: 2–3 tuần | Phí cấp GCN 0.5–1 triệu<br><b>Tổng timeline: 3–5 tháng</b></p>
+        <p>Những trường hợp KHÔNG chuyển được: đất trong hành lang bảo vệ công trình thủy lợi, đất rừng phòng hộ, đất quy hoạch công trình công cộng chưa giải tỏa, đất đang có tranh chấp pháp lý chưa giải quyết.</p>
+        <p class="ins-attr">— LexFin Capital | Pháp lý thực tế, từng bước rõ ràng.</p>
+      </div>
+      <div class="ins-modal-footer">
+        <button class="ins-modal-cta" onclick="closeInsModal();setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'})},300)">Thẩm Định Hồ Sơ Của Bạn →</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- ══════════ CTA ══════════ -->
 <section class="sec-dark" id="contact">
   <div class="wrap">
@@ -1724,7 +1885,17 @@ function closeModal(){
   document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('open'));
   document.body.style.overflow='';
 }
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeModal(); closeInsModal(); } });
+
+/* Insight modals */
+function openInsModal(id){
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeInsModal(){
+  document.querySelectorAll('.ins-modal-overlay').forEach(m=>m.classList.remove('open'));
+  document.body.style.overflow='';
+}
 
 /* Contact form submit */
 document.getElementById('cf-btn').addEventListener('click', async function(){
