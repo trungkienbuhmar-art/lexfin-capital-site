@@ -171,11 +171,11 @@ a{text-decoration:none}
 .lp-header-cta:hover{background:var(--G400)}
 
 /* ═══════════════════════════════════════════
-   HERO
+   HERO — 2-column
 ═══════════════════════════════════════════ */
 .hero{
   background:var(--N800);
-  padding:80px 0 72px;
+  padding:0;
   position:relative;overflow:hidden;
 }
 .hero::before{
@@ -184,75 +184,127 @@ a{text-decoration:none}
     radial-gradient(ellipse 80% 60% at 100% 0%, rgba(200,168,75,.07) 0%, transparent 60%),
     radial-gradient(ellipse 60% 70% at 0% 100%, rgba(200,168,75,.04) 0%, transparent 55%);
 }
-.hero>*{position:relative;z-index:1}
-.hero-inner{
-  max-width:680px;
-  text-align:center;margin:0 auto;
+.hero-grid{
+  display:grid;grid-template-columns:55fr 45fr;
+  min-height:520px;position:relative;z-index:1;
+}
+.hero-left{
+  padding:72px 52px 72px 52px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.hero-right{
+  position:relative;overflow:hidden;
+}
+.hero-right img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  min-height:340px;
 }
 .hero-eyebrow{
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  margin-bottom:28px;
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:24px;
 }
-.hero-eyebrow-line{width:28px;height:2px;background:var(--G500)}
-.hero-h1{color:var(--W);margin-bottom:10px}
+.hero-eyebrow-line{width:28px;height:2px;background:var(--G500);flex-shrink:0}
+.hero-h1{color:var(--W);margin-bottom:6px;line-height:1}
 .hero-h1-italic{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(38px,4.5vw,64px);
+  font-size:clamp(36px,4.5vw,62px);
   font-weight:300;font-style:italic;
-  line-height:1;letter-spacing:-.025em;
-  color:var(--G500);display:block;margin-bottom:28px;
+  line-height:1.05;letter-spacing:-.025em;
+  color:var(--G500);display:block;margin-bottom:24px;
 }
 .hero-sub{
-  font-size:16px;font-weight:300;line-height:1.85;
-  color:rgba(200,215,235,0.82);margin-bottom:40px;
+  font-size:15.5px;font-weight:300;line-height:1.85;
+  color:rgba(200,215,235,0.82);margin-bottom:32px;max-width:440px;
 }
-.hero-cta-row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
-.hero-trust{
-  margin-top:32px;
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(150,170,203,.45);
+.hero-micro{
+  margin-top:18px;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(150,170,203,.4);
+}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .hero-right{order:-1}
+  .hero-right img{min-height:260px;max-height:300px}
+  .hero-left{padding:48px 40px}
 }
 @media(max-width:600px){
-  .hero{padding:56px 0 52px}
-  .hero-inner{text-align:left}
-  .hero-eyebrow{justify-content:flex-start}
-  .hero-cta-row{justify-content:flex-start}
+  .hero-left{padding:40px 22px}
+  .hero-right img{max-height:240px}
 }
 
 /* ═══════════════════════════════════════════
-   PAIN POINTS
+   PAIN POINTS — 6 cards with image
 ═══════════════════════════════════════════ */
 .pain-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
 }
 .pain-card{
-  background:var(--W);border:1.5px solid var(--DL);padding:36px 32px;
+  background:var(--W);border:1.5px solid var(--DL);
   position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;
+}
+.pain-card.featured{
+  border:1.5px solid var(--G500);
+  box-shadow:0 4px 24px rgba(200,168,75,.12);
 }
 .pain-card::before{
   content:'';position:absolute;left:0;top:0;bottom:0;
   width:3px;background:var(--G500);
   transform:scaleY(0);transform-origin:bottom;transition:transform .35s;
+  z-index:2;
 }
 .pain-card:hover{border-color:rgba(200,168,75,.4);box-shadow:0 4px 32px rgba(13,34,96,.07)}
 .pain-card:hover::before{transform:scaleY(1)}
-.pain-icon{
-  width:42px;height:42px;background:var(--G100);
-  border:1.5px solid var(--DL);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:20px;transition:border-color .3s,background .3s;
+.pain-img{
+  width:100%;height:180px;overflow:hidden;position:relative;display:block;
 }
-.pain-card:hover .pain-icon{border-color:rgba(200,168,75,.4);background:var(--G200)}
-.pain-icon svg{width:18px;height:18px;stroke:var(--N700);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.pain-title{color:var(--I);margin-bottom:12px}
-.pain-desc{font-size:14px;color:var(--M);line-height:1.85;font-weight:300;margin-bottom:18px}
-.pain-tags{display:flex;flex-wrap:wrap;gap:6px}
+.pain-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .4s ease;
+}
+.pain-card:hover .pain-img img{transform:scale(1.04)}
+.pain-body{padding:28px 28px 32px}
+.pain-badge{
+  position:absolute;top:12px;right:12px;
+  background:var(--G500);color:var(--N900);
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:400;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;z-index:3;
+}
+.pain-title{color:var(--I);margin-bottom:10px}
+.pain-desc{font-size:13.5px;color:var(--M);line-height:1.8;font-weight:300;margin-bottom:16px}
+.pain-tags{display:flex;flex-wrap:wrap;gap:5px}
 .ptag{
-  font-size:9.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;
-  padding:4px 10px;border:1px solid var(--DL);color:var(--M);
+  font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;
+  padding:3.5px 9px;border:1px solid var(--DL);color:var(--M);
 }
-@media(max-width:1024px){.pain-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.pain-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════════
+   MID-PAGE CTA BAR
+═══════════════════════════════════════════ */
+.mid-cta{
+  background:var(--G500);
+  padding:52px 0;
+}
+.mid-cta-inner{
+  max-width:600px;margin:0 auto;text-align:center;
+}
+.mid-cta h3{
+  font-family:'Be Vietnam Pro',sans-serif;font-size:clamp(20px,2.5vw,28px);
+  font-weight:800;color:var(--N900);line-height:1.2;letter-spacing:-.01em;
+  margin-bottom:10px;
+}
+.mid-cta p{
+  font-size:15px;font-weight:300;color:rgba(13,34,96,.75);
+  line-height:1.7;margin-bottom:28px;
+}
+.btn-navy{
+  padding:14px 36px;background:var(--N900);color:var(--G500);
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  transition:all .25s;display:inline-block;cursor:pointer;border:none;
+  font-family:'Be Vietnam Pro',sans-serif;
+}
+.btn-navy:hover{background:var(--N700);color:var(--W);transform:translateY(-1px)}
 
 /* ═══════════════════════════════════════════
    SOLUTION (process)
@@ -284,6 +336,45 @@ a{text-decoration:none}
 }
 
 /* ═══════════════════════════════════════════
+   FAQ ACCORDION
+═══════════════════════════════════════════ */
+.faq-list{display:flex;flex-direction:column}
+.faq-item{
+  border-bottom:1px solid var(--DL);
+}
+.faq-item:first-child{border-top:1px solid var(--DL)}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 0;cursor:pointer;gap:24px;
+  -webkit-user-select:none;user-select:none;
+}
+.faq-q-text{
+  font-family:'Be Vietnam Pro',sans-serif;font-size:16px;font-weight:700;
+  color:var(--I);line-height:1.3;letter-spacing:-.01em;
+}
+.faq-icon{
+  width:28px;height:28px;border:1px solid var(--DL);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:border-color .25s,background .25s;
+}
+.faq-icon svg{
+  width:12px;height:12px;stroke:var(--M);fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .3s ease;
+}
+.faq-item.open .faq-icon{border-color:rgba(200,168,75,.4);background:var(--G100)}
+.faq-item.open .faq-icon svg{transform:rotate(180deg);stroke:var(--G500)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .35s ease;
+}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{
+  padding:0 0 22px;
+  font-size:14.5px;font-weight:300;color:var(--M);line-height:1.85;
+}
+
+/* ═══════════════════════════════════════════
    SOCIAL PROOF
 ═══════════════════════════════════════════ */
 .proof-metrics{
@@ -304,20 +395,39 @@ a{text-decoration:none}
 }
 .proof-unit{color:var(--G500)}
 .proof-lbl{font-size:12px;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:var(--M)}
-.proof-quote-block{
-  max-width:680px;margin:0 auto;text-align:center;
+/* 2-col quote with photo */
+.proof-quote-grid{
+  display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:center;
+}
+.proof-photo{
+  width:100%;height:280px;overflow:hidden;position:relative;
+}
+.proof-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;display:block;
+}
+.proof-photo-fallback{
+  width:100%;height:280px;
+  background:var(--N800);
+  display:flex;align-items:center;justify-content:center;
+}
+.proof-photo-fallback span{
+  font-family:'Be Vietnam Pro',sans-serif;font-size:32px;font-weight:800;color:var(--G500);
 }
 .proof-qt{
-  padding:24px 32px;border-left:3px solid var(--G500);text-align:left;
+  padding:24px 28px;border-left:3px solid var(--G500);
   margin-bottom:20px;
 }
 .proof-qt-txt{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(20px,2.2vw,26px);font-weight:300;font-style:italic;
+  font-size:clamp(19px,2.2vw,25px);font-weight:300;font-style:italic;
   line-height:1.55;color:var(--I);
 }
 .proof-attr{font-size:13px;font-weight:300;color:var(--M);letter-spacing:.04em}
 .proof-attr strong{font-weight:700;color:var(--I)}
+@media(max-width:768px){
+  .proof-quote-grid{grid-template-columns:1fr;gap:28px}
+  .proof-photo{height:220px}
+}
 @media(max-width:600px){
   .proof-metrics{grid-template-columns:1fr 1fr;border-top:none}
   .proof-mtr:first-child{padding-left:0;grid-column:1/-1;border-right:none;border-top:1px solid var(--GL);border-bottom:1px solid var(--DL)}
@@ -368,6 +478,14 @@ a{text-decoration:none}
   font-size:12px;font-weight:300;color:rgba(150,170,203,.4);
   text-align:center;margin-top:14px;letter-spacing:.04em;
 }
+/* Form headline — Cormorant italic gold line */
+.form-hd-italic{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,3.5vw,46px);
+  font-weight:300;font-style:italic;
+  color:var(--G500);line-height:1.05;letter-spacing:-.02em;
+  display:block;
+}
 
 /* ═══════════════════════════════════════════
    FOOTER MINIMAL
@@ -406,14 +524,14 @@ a{text-decoration:none}
 </head>
 <body>
 
-<!-- ═══ TRUST BAR ═══ -->
+<!-- ═══ 1. TRUST BAR ═══ -->
 <div class="trust-bar">
   <div class="trust-bar-inner wrap">
     <span class="trust-bar-text">200+ Hồ Sơ Đã Xử Lý &nbsp;·&nbsp; 95% Tỷ Lệ Thành Công &nbsp;·&nbsp; Phản Hồi Trong 24H</span>
   </div>
 </div>
 
-<!-- ═══ HEADER (logo only) ═══ -->
+<!-- ═══ 2. HEADER ═══ -->
 <header class="lp-header">
   <div class="lp-header-inner">
     <a href="#" class="logo">
@@ -427,84 +545,155 @@ a{text-decoration:none}
         <span class="lw-sub">Capital</span>
       </div>
     </a>
-    <a href="#contact" class="lp-header-cta">Tư Vấn Miễn Phí</a>
+    <a href="#contact" class="lp-header-cta">Xác Định Vấn Đề Miễn Phí</a>
   </div>
 </header>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ 3. HERO ═══ -->
 <section class="hero">
-  <div class="wrap">
-    <div class="hero-inner">
+  <div class="hero-grid">
+    <div class="hero-left">
       <div class="hero-eyebrow r">
         <div class="hero-eyebrow-line"></div>
-        <span class="t-label">Tư Vấn Pháp Lý BĐS Cá Nhân</span>
+        <span class="t-label">Pháp Lý BĐS · Cá Nhân · TP. Hồ Chí Minh</span>
       </div>
-      <h1 class="t-hero hero-h1 r d1">Hồ Sơ Đất Đang Vướng?</h1>
-      <span class="hero-h1-italic r d2"><em>Giải Quyết Trong 24H.</em></span>
-      <p class="hero-sub r d2">LexFin Capital xử lý toàn bộ vướng mắc pháp lý BĐS cá nhân — từ GCN, chuyển mục đích sử dụng đất, đến tranh chấp hợp đồng. Nhanh, chính xác, minh bạch.</p>
-      <div class="hero-cta-row r d3">
-        <a href="#contact" class="btn-gold">Tư Vấn Miễn Phí Ngay</a>
+      <h1 class="t-hero hero-h1 r d1">Hồ Sơ Đất Của Bạn</h1>
+      <span class="hero-h1-italic r d1"><em>Đang Bị Chặn Ở Đâu?</em></span>
+      <p class="hero-sub r d2">Hàng trăm hồ sơ pháp lý bị treo vì thiếu đúng 1 bước. LexFin Capital xác định chính xác điểm vướng và đưa ra lộ trình xử lý — phản hồi trong 24h, miễn phí.</p>
+      <div class="r d3">
+        <a href="#contact" class="btn-gold">Xác Định Vấn Đề Miễn Phí →</a>
       </div>
-      <p class="hero-trust r d3">Tin cậy bởi 200+ chủ sở hữu BĐS cá nhân tại TP. Hồ Chí Minh</p>
+      <p class="hero-micro r d3">Không cần chuẩn bị hồ sơ trước &nbsp;·&nbsp; Chỉ cần mô tả vấn đề</p>
+    </div>
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80" alt="Tư vấn pháp lý BĐS" loading="eager">
     </div>
   </div>
 </section>
 
-<!-- ═══ PAIN POINTS ═══ -->
+<!-- ═══ 4. PAIN POINTS ═══ -->
 <section class="sec" style="background:var(--W)">
   <div class="wrap">
     <div class="sec-hd r">
       <div class="sec-hd-row">
         <div class="sec-hd-line"></div>
-        <span class="t-label">Vướng Mắc Thường Gặp</span>
+        <span class="t-label">Bạn Đang Gặp Vấn Đề Này?</span>
       </div>
-      <h2 class="t-h2">Vướng Mắc Nào <span class="gold-accent">Đang Chặn Bạn?</span></h2>
+      <h2 class="t-h2">6 Vướng Mắc Pháp Lý Phổ Biến Nhất <span class="gold-accent">Tại TP.HCM</span></h2>
     </div>
     <div class="pain-grid">
+
       <!-- Card 1 -->
       <div class="pain-card r">
-        <div class="pain-icon">
-          <svg viewBox="0 0 24 24"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        <div class="pain-img">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&q=80" alt="Hoàn công nhà" loading="lazy">
         </div>
-        <h3 class="t-h3 pain-title">Sổ Đỏ Bị Vướng</h3>
-        <p class="pain-desc">GCN / GCNQSDĐ chưa được cấp, hồ sơ thiếu giấy tờ, thông tin sai lệch — hoặc chưa biết thủ tục cần làm gì tiếp theo.</p>
-        <div class="pain-tags">
-          <span class="ptag">GCN</span>
-          <span class="ptag">GCNQSDĐ</span>
-          <span class="ptag">Hồ Sơ</span>
+        <div class="pain-body">
+          <h3 class="t-h3 pain-title">Nhà Xây Xong Nhưng Chưa Hoàn Công Được</h3>
+          <p class="pain-desc">Công trình hoàn thiện nhiều năm nhưng hồ sơ hoàn công bị trả về liên tục vì không khớp bản vẽ được duyệt, hoặc phát sinh sai phép trong quá trình xây dựng.</p>
+          <div class="pain-tags">
+            <span class="ptag">Hoàn Công</span>
+            <span class="ptag">GPXD</span>
+            <span class="ptag">Sai Phép</span>
+          </div>
         </div>
       </div>
+
       <!-- Card 2 -->
       <div class="pain-card r d1">
-        <div class="pain-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <div class="pain-img">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80" alt="Cấp sổ đỏ lần đầu" loading="lazy">
         </div>
-        <h3 class="t-h3 pain-title">Chuyển Mục Đích Bị Từ Chối</h3>
-        <p class="pain-desc">Đất nông nghiệp muốn chuyển sang đất ở / thổ cư nhưng bị từ chối hoặc không biết điều kiện pháp lý cần đáp ứng.</p>
-        <div class="pain-tags">
-          <span class="ptag">Chuyển Mục Đích</span>
-          <span class="ptag">GPMB</span>
-          <span class="ptag">GPXD</span>
+        <div class="pain-body">
+          <h3 class="t-h3 pain-title">Muốn Lên Sổ Lần Đầu Nhưng Không Biết Bắt Đầu Từ Đâu</h3>
+          <p class="pain-desc">Đất sử dụng ổn định nhiều năm nhưng chưa có GCN. Nộp hồ sơ không biết thiếu giấy tờ gì, đi lại nhiều lần vẫn chưa được.</p>
+          <div class="pain-tags">
+            <span class="ptag">Cấp GCN Lần Đầu</span>
+            <span class="ptag">Đất Ở</span>
+            <span class="ptag">Đất Nông Nghiệp</span>
+          </div>
         </div>
       </div>
+
       <!-- Card 3 -->
-      <div class="pain-card r d2">
-        <div class="pain-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="pain-card r">
+        <div class="pain-img">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Đất dính quy hoạch" loading="lazy">
         </div>
-        <h3 class="t-h3 pain-title">Hợp Đồng Rủi Ro Pháp Lý</h3>
-        <p class="pain-desc">Giao dịch mua bán, tặng cho, thừa kế BĐS có tranh chấp, điều khoản bất lợi, hoặc nguy cơ mất tài sản về sau.</p>
-        <div class="pain-tags">
-          <span class="ptag">Hợp Đồng</span>
-          <span class="ptag">Thừa Kế</span>
-          <span class="ptag">Tranh Chấp</span>
+        <div class="pain-body">
+          <h3 class="t-h3 pain-title">Đất Dính Quy Hoạch — Không Mua Bán, Không Vay Vốn</h3>
+          <p class="pain-desc">Tra cứu thấy đất nằm trong vùng quy hoạch đường hoặc công trình công cộng. Không biết có bị thu hồi không, không giao dịch được, vốn bị chôn.</p>
+          <div class="pain-tags">
+            <span class="ptag">Quy Hoạch</span>
+            <span class="ptag">KHSDĐ</span>
+            <span class="ptag">1/500</span>
+          </div>
         </div>
       </div>
+
+      <!-- Card 4 -->
+      <div class="pain-card r d1">
+        <div class="pain-img">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80" alt="Sang tên nhà đất" loading="lazy">
+        </div>
+        <div class="pain-body">
+          <h3 class="t-h3 pain-title">Sang Tên Nhà Đất Bị Kéo Dài Hoặc Từ Chối</h3>
+          <p class="pain-desc">Hợp đồng đã ký, tiền đã đặt cọc nhưng hồ sơ sang tên bị trả về vì tài sản đang thế chấp, thông tin không khớp, hoặc thiếu giấy tờ từ người bán.</p>
+          <div class="pain-tags">
+            <span class="ptag">Sang Tên</span>
+            <span class="ptag">GCN</span>
+            <span class="ptag">Tranh Chấp</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="pain-card r">
+        <div class="pain-img">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=80" alt="Tách thửa đất" loading="lazy">
+        </div>
+        <div class="pain-body">
+          <h3 class="t-h3 pain-title">Tách Thửa Bị Trả Hồ Sơ Nhiều Lần</h3>
+          <p class="pain-desc">Muốn tách đất cho con hoặc chia tài sản gia đình nhưng hồ sơ bị trả vì không đủ diện tích tối thiểu, thiếu lối đi hợp pháp, hoặc vướng tranh chấp chưa xử lý.</p>
+          <div class="pain-tags">
+            <span class="ptag">Tách Thửa</span>
+            <span class="ptag">Diện Tích Tối Thiểu</span>
+            <span class="ptag">Lối Đi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 — featured, time-sensitive -->
+      <div class="pain-card featured r d1">
+        <div class="pain-img" style="position:relative">
+          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=80" alt="Hợp thức hóa vi phạm đất đai" loading="lazy">
+          <span class="pain-badge">🕐 Còn Thời Hạn</span>
+        </div>
+        <div class="pain-body">
+          <h3 class="t-h3 pain-title">Vi Phạm Đất Đai Trước 2024 — Cơ Hội Hợp Thức Hóa Đang Mở</h3>
+          <p class="pain-desc">Nghị quyết 29/2026/QH16 (hiệu lực 01/05/2026) mở cơ chế đặc thù xử lý vi phạm đất đai xảy ra trước Luật Đất đai 2024. Window opportunity có thời hạn — không xử lý kịp sẽ mất cơ hội.</p>
+          <div class="pain-tags">
+            <span class="ptag">Nghị Quyết 29/2026</span>
+            <span class="ptag">Hợp Thức Hóa</span>
+            <span class="ptag">Time-Sensitive</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ═══ SOLUTION ═══ -->
+<!-- ═══ 5. MID-PAGE CTA ═══ -->
+<div class="mid-cta">
+  <div class="mid-cta-inner r">
+    <h3>Không Chắc Vấn Đề Của Bạn Thuộc Loại Nào?</h3>
+    <p>LexFin tư vấn miễn phí — chỉ cần mô tả tình huống, xác định ngay lộ trình xử lý.</p>
+    <a href="#contact" class="btn-navy">Gửi Yêu Cầu Tư Vấn →</a>
+  </div>
+</div>
+
+<!-- ═══ 6. PROCESS ═══ -->
 <section class="sec sec-deep">
   <div class="wrap">
     <div class="sec-hd r">
@@ -512,39 +701,82 @@ a{text-decoration:none}
         <div class="sec-hd-line"></div>
         <span class="t-label">Quy Trình LexFin</span>
       </div>
-      <h2 class="t-h2" style="color:var(--W)">LexFin <span class="gold-accent">Xử Lý Như Thế Nào</span></h2>
+      <h2 class="t-h2" style="color:var(--W)">Từ Vướng Mắc, <span class="gold-accent"><em style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic">Đến Hồ Sơ Sạch.</em></span></h2>
     </div>
     <div class="sol-list">
       <div class="sol-item r">
         <div class="sol-n">01</div>
         <div>
-          <span class="sol-tag">24H → Báo Cáo Chẩn Đoán</span>
-          <h3 class="t-h3 sol-title">Tiếp Nhận &amp; Chẩn Đoán</h3>
+          <span class="sol-tag">5 Phút · Không Cần Hồ Sơ Trước</span>
+          <h3 class="t-h3 sol-title">Mô Tả Vấn Đề</h3>
         </div>
-        <p class="sol-desc">AI của LexFin phân tích toàn bộ hồ sơ trong 24h — xác định chính xác điểm vướng mắc pháp lý, tài liệu còn thiếu, và các rủi ro tiềm ẩn.</p>
+        <p class="sol-desc">Gọi điện hoặc điền form. Không cần chuẩn bị giấy tờ — chỉ cần kể tình huống của bạn. LexFin xác định ngay đây là loại vướng mắc gì.</p>
       </div>
       <div class="sol-item r d1">
         <div class="sol-n">02</div>
         <div>
-          <span class="sol-tag">Phương Án Cụ Thể</span>
-          <h3 class="t-h3 sol-title">Lộ Trình Xử Lý</h3>
+          <span class="sol-tag">Phản Hồi Trong 24H</span>
+          <h3 class="t-h3 sol-title">Thẩm Định &amp; Lộ Trình</h3>
         </div>
-        <p class="sol-desc">Đề xuất phương án xử lý cụ thể, timeline rõ ràng từng bước. Không lý thuyết — chỉ lộ trình áp dụng được ngay cho trường hợp của bạn.</p>
+        <p class="sol-desc">LexFin xác định chính xác: vướng mắc gì, thiếu giấy tờ gì, nộp đúng chỗ nào, mất bao lâu, chi phí ước tính. Không phỏng đoán — chỉ dữ liệu thực tế.</p>
       </div>
       <div class="sol-item r d2">
         <div class="sol-n">03</div>
         <div>
           <span class="sol-tag">GCN Sạch · Deal Chốt</span>
-          <h3 class="t-h3 sol-title">Thực Thi &amp; Bàn Giao</h3>
+          <h3 class="t-h3 sol-title">Thực Thi Đến Khi Xong</h3>
         </div>
-        <p class="sol-desc">Đại diện làm việc trực tiếp với cơ quan nhà nước và các bên liên quan. Bàn giao hồ sơ hoàn chỉnh, GCN sạch, minh bạch toàn bộ quá trình.</p>
+        <p class="sol-desc">Làm việc trực tiếp với cơ quan nhà nước. Báo cáo tiến độ định kỳ. Bàn giao GCN sạch — minh bạch từng bước, từng số liệu.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SOCIAL PROOF ═══ -->
+<!-- ═══ 7. FAQ ═══ -->
 <section class="sec" style="background:var(--W)">
+  <div class="wrap">
+    <div class="sec-hd r">
+      <div class="sec-hd-row">
+        <div class="sec-hd-line"></div>
+        <span class="t-label">Câu Hỏi Thường Gặp</span>
+      </div>
+      <h2 class="t-h2">Bạn Đang <span class="gold-accent">Thắc Mắc?</span></h2>
+    </div>
+    <div class="faq-list r">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Tư vấn ban đầu có mất phí không?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 8"><polyline points="1,1 6,7 11,1"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Hoàn toàn miễn phí. LexFin phân tích vấn đề và đề xuất hướng xử lý trong 24h — không ràng buộc, không áp lực ký hợp đồng.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Xử lý pháp lý thường mất bao lâu?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 8"><polyline points="1,1 6,7 11,1"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Tùy loại hồ sơ: cấp GCN lần đầu 4–8 tuần, sang tên 2–4 tuần, hoàn công 4–10 tuần, chuyển mục đích 3–5 tháng, tách thửa 3–6 tuần. LexFin cam kết báo cáo tiến độ định kỳ.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Tôi ở xa, không đến trực tiếp được thì sao?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 8"><polyline points="1,1 6,7 11,1"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Hoàn toàn được. LexFin làm việc online qua điện thoại và Zalo. Giai đoạn đầu chỉ cần scan/chụp giấy tờ gửi qua — không cần gặp mặt.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Nếu hồ sơ không giải quyết được thì sao?</span>
+          <div class="faq-icon"><svg viewBox="0 0 12 8"><polyline points="1,1 6,7 11,1"/></svg></div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">LexFin chỉ nhận hồ sơ sau khi đã thẩm định và xác nhận có lộ trình xử lý khả thi. Nếu không xử lý được, LexFin nói thẳng từ đầu — không nhận phí tư vấn.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. SOCIAL PROOF ═══ -->
+<section class="sec" style="background:var(--W);padding-top:0">
   <div class="wrap">
     <div class="proof-metrics r">
       <div class="proof-mtr">
@@ -560,16 +792,22 @@ a{text-decoration:none}
         <span class="proof-lbl">Phản Hồi Ban Đầu</span>
       </div>
     </div>
-    <div class="proof-quote-block r d1">
-      <div class="proof-qt">
-        <p class="proof-qt-txt">"Deal tốt không đến từ may mắn — đến từ hồ sơ sạch và người biết cách xử lý."</p>
+    <div class="proof-quote-grid r d1">
+      <div class="proof-photo">
+        <img src="mr-finance.JPEG" alt="Mr. Finance — Founder LexFin Capital"
+          onerror="this.parentElement.outerHTML='<div class=\'proof-photo-fallback\'><span>MF</span></div>'">
       </div>
-      <p class="proof-attr"><strong>Mr. Finance</strong> &nbsp;·&nbsp; Founder &amp; CEO, Trịnh Trung Kiên — LexFin Capital</p>
+      <div>
+        <div class="proof-qt">
+          <p class="proof-qt-txt">"Deal tốt không đến từ may mắn — đến từ hồ sơ sạch và người biết cách xử lý."</p>
+        </div>
+        <p class="proof-attr"><strong>Mr. Finance</strong> &nbsp;·&nbsp; Founder &amp; CEO, Trịnh Trung Kiên — LexFin Capital</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FORM ═══ -->
+<!-- ═══ 9. FORM ═══ -->
 <section id="contact" class="sec sec-dark">
   <div class="wrap">
     <div class="sec-hd r" style="text-align:center">
@@ -578,8 +816,9 @@ a{text-decoration:none}
         <span class="t-label">Tư Vấn Miễn Phí</span>
         <div class="sec-hd-line"></div>
       </div>
-      <h2 class="t-h2 r d1" style="color:var(--W)">Nhận Tư Vấn <span class="gold-accent">Miễn Phí</span></h2>
-      <p class="r d2" style="font-size:15px;font-weight:300;color:var(--MH);margin-top:12px">Điền thông tin — LexFin phản hồi trong 24h, hoàn toàn miễn phí, không ràng buộc.</p>
+      <h2 class="t-h2 r d1" style="color:var(--W)">Hồ Sơ Đang Chờ?</h2>
+      <span class="form-hd-italic r d2">Xác Định Vấn Đề Miễn Phí.</span>
+      <p class="r d2" style="font-size:15px;font-weight:300;color:var(--MH);margin-top:16px">Điền thông tin — LexFin gọi lại trong 24h để phân tích tình huống cụ thể của bạn. Hoàn toàn miễn phí.</p>
     </div>
     <div class="form-wrap r d2">
       <div class="form-fields">
@@ -594,21 +833,30 @@ a{text-decoration:none}
         <div class="cf-field">
           <label class="cf-label" for="cf-need">Vấn Đề Cần Hỗ Trợ</label>
           <select id="cf-need" class="cf-select">
-            <option value="Sổ Đỏ / GCN">Sổ Đỏ / GCN Bị Vướng</option>
-            <option value="Chuyển Mục Đích Sử Dụng">Chuyển Mục Đích Sử Dụng Đất</option>
-            <option value="Hợp Đồng / Tranh Chấp">Hợp Đồng / Tranh Chấp BĐS</option>
-            <option value="Khác">Vấn Đề Khác</option>
+            <option value="" disabled selected>Chọn vấn đề cần hỗ trợ</option>
+            <option value="Hoàn công nhà / công trình">Hoàn công nhà / công trình</option>
+            <option value="Cấp sổ đỏ lần đầu">Cấp sổ đỏ lần đầu</option>
+            <option value="Đất dính quy hoạch">Đất dính quy hoạch</option>
+            <option value="Sang tên mua bán">Sang tên mua bán</option>
+            <option value="Tách thửa đất">Tách thửa đất</option>
+            <option value="Hợp thức hóa vi phạm trước 2024">Hợp thức hóa vi phạm trước 2024</option>
+            <option value="Thừa kế đất đai">Thừa kế đất đai</option>
+            <option value="Mua đất giấy tay chưa lên sổ">Mua đất giấy tay chưa lên sổ</option>
+            <option value="Đất đang thế chấp ngân hàng">Đất đang thế chấp ngân hàng</option>
+            <option value="Tranh chấp ranh giới / lối đi">Tranh chấp ranh giới / lối đi</option>
+            <option value="Sổ hộ gia đình giao dịch sai">Sổ hộ gia đình giao dịch sai</option>
+            <option value="Vấn đề khác">Vấn đề khác</option>
           </select>
         </div>
       </div>
-      <button id="cf-btn" class="cf-submit">Gửi Yêu Cầu Tư Vấn</button>
+      <button id="cf-btn" class="cf-submit">Xác Định Vấn Đề Miễn Phí →</button>
       <p id="cf-msg" class="cf-msg"></p>
-      <p class="form-note">Thông tin của bạn được bảo mật tuyệt đối &nbsp;·&nbsp; Không spam &nbsp;·&nbsp; Phản hồi trong 24h</p>
+      <p class="form-note">Không spam &nbsp;·&nbsp; Phản hồi trong 24h &nbsp;·&nbsp; Tư vấn ban đầu hoàn toàn miễn phí</p>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER MINIMAL ═══ -->
+<!-- ═══ 10. FOOTER ═══ -->
 <footer class="lp-footer">
   <div class="wrap">
     <div class="lp-footer-inner">
@@ -623,8 +871,8 @@ a{text-decoration:none}
           <span class="lw-sub">Capital</span>
         </div>
       </a>
-      <a href="mailto:contact@lexfin.vn" class="lp-footer-email">contact@lexfin.vn</a>
-      <span class="lp-footer-right">© 2025 LexFin Capital</span>
+      <a href="mailto:trungkien.lexfin@gmail.com" class="lp-footer-email">trungkien.lexfin@gmail.com</a>
+      <span class="lp-footer-right">© 2026 LexFin Capital</span>
     </div>
   </div>
 </footer>
@@ -651,6 +899,14 @@ const cObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting){ runCounter(e.target); cObs.unobserve(e.target); } });
 },{threshold:.5});
 document.querySelectorAll('.counter').forEach(el=>cObs.observe(el));
+
+/* FAQ accordion */
+function toggleFaq(trigger){
+  const item = trigger.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
 
 /* Form submit */
 document.getElementById('cf-btn').addEventListener('click', async function(){
@@ -683,7 +939,7 @@ document.getElementById('cf-btn').addEventListener('click', async function(){
       })
     });
     if(res.ok){
-      msg.textContent = 'Đã gửi! LexFin sẽ phản hồi trong 24h.';
+      msg.textContent = '✓ Đã gửi — LexFin sẽ gọi lại trong 24h.';
       msg.style.color = '#C8A84B';
       btn.textContent = 'Đã Gửi ✓';
     } else {
@@ -693,7 +949,7 @@ document.getElementById('cf-btn').addEventListener('click', async function(){
     msg.textContent = 'Gửi thất bại, vui lòng thử lại.';
     msg.style.color = '#e07070';
     btn.disabled = false;
-    btn.textContent = 'Gửi Yêu Cầu Tư Vấn';
+    btn.textContent = 'Xác Định Vấn Đề Miễn Phí →';
   }
 });
 </script>

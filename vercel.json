@@ -1,0 +1,6 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/phap-ly-ca-nhan", "destination": "/phap-ly-ca-nhan.html" }
+  ]
+}
