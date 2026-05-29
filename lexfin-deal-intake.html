@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LexFin — Deal Intake</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1E47;
+    --navy-dark: #06102A;
+    --navy-mid: #0D2260;
+    --gold: #C8A84B;
+    --gold-light: #E2C97A;
+    --white: #FAFAF7;
+    --cream: #F0EBE0;
+    --muted: rgba(250,250,247,0.45);
+    --border: rgba(200,168,75,0.25);
+    --green: #2ECC71;
+    --yellow: #F1C40F;
+    --red: #E74C3C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--navy-dark);
+    color: var(--white);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-badge {
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .header-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .header-title span { color: var(--gold); }
+
+  .header-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  /* Section */
+  .section {
+    background: rgba(13,30,71,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .span-2 { grid-column: span 2; }
+
+  /* Field */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+
+  .field label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    background: rgba(13,34,96,0.5);
+    border: 1px solid rgba(200,168,75,0.2);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--gold);
+    background: rgba(13,34,96,0.8);
+  }
+
+  .field select option { background: var(--navy); color: var(--white); }
+
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* Classification buttons */
+  .classif-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  .classif-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background: rgba(13,34,96,0.5);
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .classif-btn[data-val="GREEN"]:hover,
+  .classif-btn[data-val="GREEN"].active {
+    background: rgba(46,204,113,0.15);
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .classif-btn[data-val="YELLOW"]:hover,
+  .classif-btn[data-val="YELLOW"].active {
+    background: rgba(241,196,15,0.15);
+    border-color: var(--yellow);
+    color: var(--yellow);
+  }
+
+  .classif-btn[data-val="RED"]:hover,
+  .classif-btn[data-val="RED"].active {
+    background: rgba(231,76,60,0.15);
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  #classif-hidden { display: none; }
+
+  /* Submit */
+  .submit-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-top: 28px;
+  }
+
+  .btn-submit {
+    flex: 1;
+    background: var(--gold);
+    color: var(--navy-dark);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-reset {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-reset:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Status */
+  .status-bar {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .status-bar.loading {
+    display: flex;
+    background: rgba(200,168,75,0.1);
+    border: 1px solid rgba(200,168,75,0.3);
+    color: var(--gold);
+  }
+
+  .status-bar.success {
+    display: flex;
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.3);
+    color: var(--green);
+  }
+
+  .status-bar.error {
+    display: flex;
+    background: rgba(231,76,60,0.1);
+    border: 1px solid rgba(231,76,60,0.3);
+    color: var(--red);
+  }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(200,168,75,0.3);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Deal code preview */
+  .deal-code-preview {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 8px;
+  }
+
+  .deal-code-preview span { color: var(--gold); }
+
+  /* Token warning */
+  .token-warning {
+    background: rgba(231,76,60,0.08);
+    border: 1px solid rgba(231,76,60,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: rgba(231,76,60,0.8);
+    margin-top: 8px;
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .span-2 { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+        <span class="header-badge">INTERNAL ONLY</span>
+        <div class="header-title"><span>LexFin</span> Deal Intake</div>
+      </div>
+      <div class="header-sub">CEO GATE · POST-CALL FORM · TRIGGERS AGENT PIPELINE</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Thông tin khách -->
+  <div class="section">
+    <div class="section-label">01 · Thông tin khách hàng</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Họ và tên *</label>
+        <input type="text" id="ten_file" placeholder="Nguyễn Văn A" required>
+      </div>
+      <div class="field">
+        <label>Số điện thoại *</label>
+        <input type="tel" id="sdt" placeholder="0901234567" required>
+      </div>
+      <div class="field">
+        <label>Nguồn lead</label>
+        <select id="source">
+          <option value="landing_phap_ly_ca_nhan">Landing Page — Pháp lý cá nhân</option>
+          <option value="website">Website chính</option>
+          <option value="referral">Giới thiệu</option>
+          <option value="direct">Trực tiếp</option>
+          <option value="zalo">Zalo</option>
+          <option value="other">Khác</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Loại khách hàng</label>
+        <select id="loai_khach">
+          <option value="ca_nhan">Cá nhân</option>
+          <option value="doanh_nghiep">Doanh nghiệp / SME</option>
+          <option value="chu_dau_tu">Chủ đầu tư dự án</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Tài sản -->
+  <div class="section">
+    <div class="section-label">02 · Thông tin tài sản BĐS</div>
+    <div class="grid-2">
+      <div class="field span-2">
+        <label>Địa chỉ thửa đất / tài sản *</label>
+        <input type="text" id="dia_chi" placeholder="Số nhà, đường, phường/xã, quận/huyện, TP.HCM" required>
+      </div>
+      <div class="field">
+        <label>Diện tích (m²)</label>
+        <input type="number" id="dien_tich" placeholder="120">
+      </div>
+      <div class="field">
+        <label>Loại đất (GCN)</label>
+        <select id="loai_dat">
+          <option value="">-- Chọn --</option>
+          <option value="ONT">ONT — Đất ở nông thôn</option>
+          <option value="ODT">ODT — Đất ở đô thị</option>
+          <option value="CLN">CLN — Đất cây lâu năm</option>
+          <option value="LUC">LUC — Đất lúa</option>
+          <option value="TMD">TMD — Đất thương mại dịch vụ</option>
+          <option value="SKC">SKC — Đất sản xuất kinh doanh</option>
+          <option value="RSX">RSX — Đất rừng sản xuất</option>
+          <option value="chua_co_gcn">Chưa có GCN</option>
+          <option value="other">Khác</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tình trạng thế chấp</label>
+        <select id="the_chap">
+          <option value="khong">Không thế chấp</option>
+          <option value="co">Đang thế chấp ngân hàng</option>
+          <option value="chua_ro">Chưa rõ</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Mục tiêu giao dịch</label>
+        <select id="muc_tieu">
+          <option value="">-- Chọn --</option>
+          <option value="ban">Bán</option>
+          <option value="vay_von">Vay vốn ngân hàng</option>
+          <option value="tach_thua">Tách thửa</option>
+          <option value="hoan_cong">Hoàn công</option>
+          <option value="cap_so">Cấp sổ lần đầu</option>
+          <option value="sang_ten">Sang tên</option>
+          <option value="chuyen_muc_dich">Chuyển mục đích sử dụng</option>
+          <option value="hop_thuc_hoa">Hợp thức hóa</option>
+          <option value="other">Khác</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Vấn đề + Phân tích -->
+  <div class="section">
+    <div class="section-label">03 · Vấn đề pháp lý & Phân tích sơ bộ</div>
+    <div class="grid-2">
+      <div class="field span-2">
+        <label>Vấn đề chi tiết (khai thác qua điện thoại) *</label>
+        <textarea id="van_de_chi_tiet" placeholder="Mô tả cụ thể: đang vướng ở đâu, đã làm gì, bị từ chối lý do gì, timeline mong muốn..." required></textarea>
+      </div>
+      <div class="field span-2">
+        <label>Hồ sơ hiện có</label>
+        <textarea id="ho_so_hien_co" placeholder="Đã có: GCN gốc, CCCD, sơ đồ... Còn thiếu: ..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: CEO Assessment -->
+  <div class="section">
+    <div class="section-label">04 · CEO Assessment</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Timeline khách mong muốn</label>
+        <select id="timeline">
+          <option value="gap_1_thang">Gấp — trong 1 tháng</option>
+          <option value="2_3_thang">2–3 tháng</option>
+          <option value="3_6_thang">3–6 tháng</option>
+          <option value="linh_dong">Linh động</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Ngân sách khách (ước tính)</label>
+        <select id="ngan_sach">
+          <option value="duoi_5tr">Dưới 5 triệu</option>
+          <option value="5_15tr">5–15 triệu</option>
+          <option value="15_50tr">15–50 triệu</option>
+          <option value="tren_50tr">Trên 50 triệu</option>
+          <option value="chua_biet">Chưa xác định</option>
+        </select>
+      </div>
+      <div class="field span-2">
+        <label>Phân loại deal *</label>
+        <div class="classif-group">
+          <button type="button" class="classif-btn" data-val="GREEN" onclick="setClassif('GREEN')">🟢 GREEN</button>
+          <button type="button" class="classif-btn" data-val="YELLOW" onclick="setClassif('YELLOW')">🟡 YELLOW</button>
+          <button type="button" class="classif-btn" data-val="RED" onclick="setClassif('RED')">🔴 RED</button>
+        </div>
+        <input type="hidden" id="classif-hidden">
+      </div>
+      <div class="field span-2">
+        <label>CEO Note (nội bộ)</label>
+        <textarea id="ceo_note" placeholder="Nhận xét nhanh: điểm mạnh, rủi ro, cơ hội, lý do phân loại..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Token warning -->
+  <div class="token-warning" id="token-warning">
+    ⚠️ Lưu ý: Cần cài Google Drive API token trong file config. Xem hướng dẫn bên dưới.
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-row">
+    <button class="btn-submit" id="btn-submit" onclick="submitDeal()">
+      🚀 Tạo Deal Doc → Trigger Pipeline
+    </button>
+    <button class="btn-reset" onclick="resetForm()">Reset</button>
+  </div>
+
+  <div class="deal-code-preview" id="deal-code-preview">
+    Deal code: <span>LFC-DEAL-2026-???</span>
+  </div>
+
+  <div class="status-bar" id="status-bar">
+    <div class="spinner" id="status-spinner"></div>
+    <span id="status-text"></span>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// CONFIG — Thay ACCESS_TOKEN bằng Google OAuth token
+// Hướng dẫn: https://developers.google.com/oauthplayground
+// Scope cần: https://www.googleapis.com/auth/drive.file
+// ═══════════════════════════════════════════════════
+const CONFIG = {
+  DRIVE_FOLDER_ID: '1KEvmMkpUQpwdW3W1gYgXFB-wYjQSDizN',
+  // Lấy token tại: https://developers.google.com/oauthplayground
+  // Scope: https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/documents
+  ya29.a0AQvPyIP0HycxwbeB3eejO0SceJTqnNlmejZWRoW8MBbmSe4Lr7snsfIzQojAcNF4cfIEJwF3MuFTe0PhJvKPL8Io7cohwY0Jy8P8_aURCy8zPoYVCQerYr83lKQieYWVGwkPGUY_hUFQf8E90MqpegCPaqQUtt1KsZQ1M-NIlRduVyW2lTVYfzP-13oLp2BrRiPMHbcaCgYKARcSARYSFQHGX2MipicrN583N7T5bIXF9PbA4Q0206
+};
+
+// Deal counter (local)
+let dealCounter = Math.floor(Math.random() * 900) + 100;
+
+function setClassif(val) {
+  const colors = { GREEN: '#2ECC71', YELLOW: '#F1C40F', RED: '#E74C3C' };
+  const bgs = { GREEN: 'rgba(46,204,113,0.2)', YELLOW: 'rgba(241,196,15,0.2)', RED: 'rgba(231,76,60,0.2)' };
+  document.querySelectorAll('.classif-btn').forEach(b => {
+    b.classList.remove('active');
+    b.style.cssText = 'background:rgba(13,34,96,0.5);border-color:transparent;color:#FAFAF7;font-weight:500;';
+  });
+  const btn = document.querySelector('.classif-btn[data-val="' + val + '"]');
+  btn.classList.add('active');
+  btn.style.cssText = 'background:' + bgs[val] + ';border:2px solid ' + colors[val] + ';color:' + colors[val] + ';font-weight:700;';
+  document.getElementById('classif-hidden').value = val;
+}
+
+function showStatus(type, text) {
+  const bar = document.getElementById('status-bar');
+  const spinner = document.getElementById('status-spinner');
+  bar.className = 'status-bar ' + type;
+  document.getElementById('status-text').textContent = text;
+  spinner.style.display = type === 'loading' ? 'block' : 'none';
+}
+
+function getVal(id) {
+  return document.getElementById(id)?.value?.trim() || '';
+}
+
+function genDealCode() {
+  const now = new Date();
+  const mm = String(now.getMonth()+1).padStart(2,'0');
+  const dd = String(now.getDate()).padStart(2,'0');
+  return `LFC-DEAL-2026-${mm}${dd}-${dealCounter++}`;
+}
+
+function buildDocContent(data) {
+  return `LexFin Capital — Deal Brief
+${data.deal_code}
+Ngày tạo: ${data.timestamp}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+I. THÔNG TIN KHÁCH HÀNG
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Họ tên: ${data.ten_file}
+SĐT: ${data.sdt}
+Loại khách: ${data.loai_khach}
+Nguồn lead: ${data.source}
+
+II. THÔNG TIN TÀI SẢN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Địa chỉ: ${data.dia_chi}
+Diện tích: ${data.dien_tich} m²
+Loại đất (GCN): ${data.loai_dat}
+Thế chấp: ${data.the_chap}
+Mục tiêu: ${data.muc_tieu}
+
+III. VẤN ĐỀ PHÁP LÝ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${data.van_de_chi_tiet}
+
+Hồ sơ hiện có:
+${data.ho_so_hien_co || '(Chưa cập nhật)'}
+
+IV. CEO ASSESSMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Phân loại: ${data.phan_loai}
+Timeline: ${data.timeline}
+Ngân sách khách: ${data.ngan_sach}
+
+CEO Note:
+${data.ceo_note || '(Không có)'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+contact_type: deal_full
+deal_code: ${data.deal_code}
+created_by: CEO_GATE
+status: PENDING_ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+}
+
+async function submitDeal() {
+  // Validate
+  const required = ['ten_file', 'sdt', 'dia_chi', 'van_de_chi_tiet'];
+  for (const id of required) {
+    if (!getVal(id)) {
+      showStatus('error', `⚠️ Thiếu trường bắt buộc: ${id}`);
+      document.getElementById(id).focus();
+      return;
+    }
+  }
+  if (!getVal('classif-hidden')) {
+    showStatus('error', '⚠️ Chưa phân loại deal (GREEN/YELLOW/RED)');
+    return;
+  }
+  if (CONFIG.ACCESS_TOKEN === 'PASTE_GOOGLE_OAUTH_TOKEN_HERE') {
+    showStatus('error', '⚠️ Chưa cài Google OAuth Token — xem hướng dẫn bên dưới');
+    document.getElementById('token-warning').style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  showStatus('loading', 'Đang tạo Google Doc...');
+
+  const now = new Date();
+  const timestamp = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} — ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/2026`;
+  const dealCode = genDealCode();
+
+  const data = {
+    deal_code: dealCode,
+    timestamp,
+    ten_file: getVal('ten_file'),
+    sdt: getVal('sdt'),
+    loai_khach: getVal('loai_khach'),
+    source: getVal('source'),
+    dia_chi: getVal('dia_chi'),
+    dien_tich: getVal('dien_tich') || 'Chưa rõ',
+    loai_dat: getVal('loai_dat') || 'Chưa rõ',
+    the_chap: getVal('the_chap'),
+    muc_tieu: getVal('muc_tieu') || 'Chưa rõ',
+    van_de_chi_tiet: getVal('van_de_chi_tiet'),
+    ho_so_hien_co: getVal('ho_so_hien_co'),
+    phan_loai: getVal('classif-hidden'),
+    timeline: getVal('timeline'),
+    ngan_sach: getVal('ngan_sach'),
+    ceo_note: getVal('ceo_note')
+  };
+
+  const docTitle = `${dealCode} — ${data.ten_file} — ${data.phan_loai}`;
+  const docBody = buildDocContent(data);
+
+  try {
+    // Step 1: Tạo Google Doc trống
+    showStatus('loading', 'Tạo Google Doc trong Drive folder...');
+    const createRes = await fetch('https://www.googleapis.com/drive/v3/files', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${CONFIG.ACCESS_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: docTitle,
+        mimeType: 'application/vnd.google-apps.document',
+        parents: [CONFIG.DRIVE_FOLDER_ID]
+      })
+    });
+
+    if (!createRes.ok) throw new Error(`Drive API error: ${createRes.status}`);
+    const file = await createRes.json();
+    const docId = file.id;
+
+    // Step 2: Write content vào Doc
+    showStatus('loading', 'Ghi nội dung deal brief...');
+    const insertRes = await fetch(`https://docs.googleapis.com/v1/documents/${docId}:batchUpdate`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${CONFIG.ACCESS_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        requests: [{
+          insertText: {
+            location: { index: 1 },
+            text: docBody
+          }
+        }]
+      })
+    });
+
+    if (!insertRes.ok) throw new Error(`Docs API error: ${insertRes.status}`);
+
+    // Done
+    document.getElementById('deal-code-preview').innerHTML = `Deal code: <span>${dealCode}</span> · <a href="https://docs.google.com/document/d/${docId}" target="_blank" style="color:var(--gold)">Mở Doc ↗</a>`;
+    showStatus('success', `✅ ${dealCode} — Doc đã tạo, n8n pipeline sẽ trigger trong ~1 phút`);
+    btn.textContent = '✅ Đã gửi — Pipeline đang chạy';
+
+  } catch (err) {
+    showStatus('error', `❌ Lỗi: ${err.message}`);
+    btn.disabled = false;
+    btn.textContent = '🚀 Tạo Deal Doc → Trigger Pipeline';
+  }
+}
+
+function resetForm() {
+  document.querySelectorAll('input:not(#classif-hidden), select, textarea').forEach(el => el.value = '');
+  document.querySelectorAll('.classif-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('classif-hidden').value = '';
+  document.getElementById('status-bar').className = 'status-bar';
+  document.getElementById('deal-code-preview').innerHTML = `Deal code: <span>LFC-DEAL-2026-???</span>`;
+  document.getElementById('btn-submit').disabled = false;
+  document.getElementById('btn-submit').textContent = '🚀 Tạo Deal Doc → Trigger Pipeline';
+  document.getElementById('token-warning').style.display = 'none';
+}
+</script>
+</body>
+</html>
