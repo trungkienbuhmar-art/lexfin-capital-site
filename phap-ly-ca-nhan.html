@@ -9,6 +9,11 @@
   gtag('js', new Date());
   gtag('config', 'G-55LXL123D7');
 </script>
+<!-- Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18195448919"></script>
+<script>
+  gtag('config', 'AW-18195448919');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Vướng mắc pháp lý BĐS cá nhân? LexFin Capital xử lý GCN, chuyển mục đích sử dụng đất, tranh chấp hợp đồng. Phản hồi trong 24h — miễn phí, không ràng buộc.">
@@ -919,6 +924,10 @@ document.getElementById('cf-btn').addEventListener('click', async function(){
       msg.textContent = '✓ Đã gửi — LexFin sẽ gọi lại trong 24h.';
       msg.style.color = '#C8A84B';
       btn.textContent = 'Đã Gửi ✓';
+      // Google Ads conversion tracking
+      gtag('event', 'ads_conversion_SUBMIT_LEAD_FORM_1', {});
+      // Redirect to thank-you page
+      setTimeout(() => { window.location.href = '/cam-on'; }, 1200);
     } else {
       throw new Error('server');
     }
