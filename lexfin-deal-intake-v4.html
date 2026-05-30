@@ -484,15 +484,10 @@
 
 <script>
 // ═══════════════════════════════════════════════════
-// CONFIG — Thay ACCESS_TOKEN bằng Google OAuth token
-// Hướng dẫn: https://developers.google.com/oauthplayground
-// Scope cần: https://www.googleapis.com/auth/drive.file
-// ═══════════════════════════════════════════════════
+// CONFIG
 const CONFIG = {
-  DRIVE_FOLDER_ID: '1KEvmMkpUQpwdW3W1gYgXFB-wYjQSDizN',
-  // Lấy token tại: https://developers.google.com/oauthplayground
-  // Scope: https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/documents
-  ya29.a0AQvPyIP0HycxwbeB3eejO0SceJTqnNlmejZWRoW8MBbmSe4Lr7snsfIzQojAcNF4cfIEJwF3MuFTe0PhJvKPL8Io7cohwY0Jy8P8_aURCy8zPoYVCQerYr83lKQieYWVGwkPGUY_hUFQf8E90MqpegCPaqQUtt1KsZQ1M-NIlRduVyW2lTVYfzP-13oLp2BrRiPMHbcaCgYKARcSARYSFQHGX2MipicrN583N7T5bIXF9PbA4Q0206
+  N8N_WEBHOOK: 'https://lexfincapital.app.n8n.cloud/webhook/lexfin-contact',
+  CRM_SHEET_URL: 'https://docs.google.com/spreadsheets/d/1VNNHTMnzHWcWhq1_BXQjgTVTlbZnvnMR2ARlnvCjUTo'
 };
 
 // Deal counter (local)
@@ -589,90 +584,55 @@ async function submitDeal() {
     showStatus('error', '⚠️ Chưa phân loại deal (GREEN/YELLOW/RED)');
     return;
   }
-  if (CONFIG.ACCESS_TOKEN === 'PASTE_GOOGLE_OAUTH_TOKEN_HERE') {
-    showStatus('error', '⚠️ Chưa cài Google OAuth Token — xem hướng dẫn bên dưới');
-    document.getElementById('token-warning').style.display = 'block';
-    return;
-  }
 
   const btn = document.getElementById('btn-submit');
   btn.disabled = true;
-  showStatus('loading', 'Đang tạo Google Doc...');
 
   const now = new Date();
   const timestamp = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')} — ${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/2026`;
   const dealCode = genDealCode();
 
-  const data = {
-    deal_code: dealCode,
-    timestamp,
-    ten_file: getVal('ten_file'),
-    sdt: getVal('sdt'),
-    loai_khach: getVal('loai_khach'),
+  // Payload — map đúng field names Normalize Data node đọc
+  const payload = {
+    ho_ten: getVal('ten_file'),
+    so_dien_thoai: getVal('sdt'),
+    nhu_cau: getVal('muc_tieu') || getVal('van_de_chi_tiet').substring(0, 80),
     source: getVal('source'),
+    contact_type: 'deal_full',
+    timestamp: now.toISOString(),
+    // Extended deal fields
+    deal_code: dealCode,
+    loai_khach: getVal('loai_khach'),
     dia_chi: getVal('dia_chi'),
     dien_tich: getVal('dien_tich') || 'Chưa rõ',
     loai_dat: getVal('loai_dat') || 'Chưa rõ',
     the_chap: getVal('the_chap'),
     muc_tieu: getVal('muc_tieu') || 'Chưa rõ',
     van_de_chi_tiet: getVal('van_de_chi_tiet'),
-    ho_so_hien_co: getVal('ho_so_hien_co'),
+    ho_so_hien_co: getVal('ho_so_hien_co') || '',
     phan_loai: getVal('classif-hidden'),
     timeline: getVal('timeline'),
     ngan_sach: getVal('ngan_sach'),
-    ceo_note: getVal('ceo_note')
+    ceo_note: getVal('ceo_note') || ''
   };
 
-  const docTitle = `${dealCode} — ${data.ten_file} — ${data.phan_loai}`;
-  const docBody = buildDocContent(data);
-
   try {
-    // Step 1: Tạo Google Doc trống
-    showStatus('loading', 'Tạo Google Doc trong Drive folder...');
-    const createRes = await fetch('https://www.googleapis.com/drive/v3/files', {
+    showStatus('loading', 'Đang gửi tới n8n pipeline...');
+
+    const res = await fetch(CONFIG.N8N_WEBHOOK, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${CONFIG.ACCESS_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: docTitle,
-        mimeType: 'application/vnd.google-apps.document',
-        parents: [CONFIG.DRIVE_FOLDER_ID]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
 
-    if (!createRes.ok) throw new Error(`Drive API error: ${createRes.status}`);
-    const file = await createRes.json();
-    const docId = file.id;
-
-    // Step 2: Write content vào Doc
-    showStatus('loading', 'Ghi nội dung deal brief...');
-    const insertRes = await fetch(`https://docs.googleapis.com/v1/documents/${docId}:batchUpdate`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${CONFIG.ACCESS_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        requests: [{
-          insertText: {
-            location: { index: 1 },
-            text: docBody
-          }
-        }]
-      })
-    });
-
-    if (!insertRes.ok) throw new Error(`Docs API error: ${insertRes.status}`);
-
-    // Done
-    document.getElementById('deal-code-preview').innerHTML = `Deal code: <span>${dealCode}</span> · <a href="https://docs.google.com/document/d/${docId}" target="_blank" style="color:var(--gold)">Mở Doc ↗</a>`;
-    showStatus('success', `✅ ${dealCode} — Doc đã tạo, n8n pipeline sẽ trigger trong ~1 phút`);
+    // n8n webhook respond=Immediately → luôn trả 200, không cần check body
+    document.getElementById('deal-code-preview').innerHTML =
+      `Deal code: <span>${dealCode}</span> · <a href="${CONFIG.CRM_SHEET_URL}" target="_blank" style="color:var(--gold)">CRM ↗</a>`;
+    showStatus('success', `✅ ${dealCode} — Đã gửi tới n8n. Pipeline đang xử lý, Google Doc sẽ tạo trong Drive và CRM ghi tự động.`);
     btn.textContent = '✅ Đã gửi — Pipeline đang chạy';
 
   } catch (err) {
-    showStatus('error', `❌ Lỗi: ${err.message}`);
+    showStatus('error', `❌ Lỗi kết nối: ${err.message}`);
     btn.disabled = false;
     btn.textContent = '🚀 Tạo Deal Doc → Trigger Pipeline';
   }
@@ -680,7 +640,7 @@ async function submitDeal() {
 
 function resetForm() {
   document.querySelectorAll('input:not(#classif-hidden), select, textarea').forEach(el => el.value = '');
-  document.querySelectorAll('.classif-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.classif-btn').forEach(b => { b.classList.remove('active'); b.style.cssText = 'background:rgba(13,34,96,0.5);border-color:transparent;color:#FAFAF7;font-weight:500;'; });
   document.getElementById('classif-hidden').value = '';
   document.getElementById('status-bar').className = 'status-bar';
   document.getElementById('deal-code-preview').innerHTML = `Deal code: <span>LFC-DEAL-2026-???</span>`;
