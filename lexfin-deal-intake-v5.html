@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LexFin — Deal Intake v5 (CEO Only)</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#14264A; --navy2:#1E335C; --gold:#C3A152; --red:#C53030; --bg:#F7F4ED; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Manrope',sans-serif; background:var(--bg); color:#111; font-size:15px; }
+  .wrap { max-width:860px; margin:0 auto; padding:24px 16px 80px; }
+  header { background:var(--navy); color:#fff; padding:22px 26px; border-radius:12px 12px 0 0; }
+  header h1 { font-size:20px; font-weight:700; }
+  header h1 span { color:var(--gold); }
+  header p { font-size:12.5px; opacity:.85; margin-top:4px; }
+  .card { background:#fff; border:1px solid #e2e2e2; border-top:none; border-radius:0 0 12px 12px; padding:26px; }
+  h2 { font-size:15px; color:var(--navy); margin:26px 0 12px; padding-bottom:6px; border-bottom:2px solid var(--gold); }
+  h2:first-of-type { margin-top:0; }
+  label { display:block; font-size:13px; font-weight:600; margin:14px 0 5px; color:#222; }
+  label .req { color:var(--red); }
+  label .hint { font-weight:400; color:#888; font-size:12px; }
+  input[type=text], input[type=url], input[type=number], select, textarea {
+    width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:8px; font:inherit; font-size:14px; background:#fff; }
+  input:focus, select:focus, textarea:focus { outline:2px solid var(--gold); border-color:var(--gold); }
+  textarea { min-height:96px; resize:vertical; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
+  @media (max-width:640px){ .grid2 { grid-template-columns:1fr; } }
+  /* Deal type picker */
+  .dt-picker { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:8px; }
+  @media (min-width:641px){ .dt-picker { grid-template-columns:repeat(4,1fr); } }
+  .dt-picker input { display:none; }
+  .dt-picker label.dt { margin:0; border:2px solid #ddd; border-radius:10px; padding:14px 10px; text-align:center; cursor:pointer; font-size:13px; font-weight:600; color:#444; background:#F7F4ED; transition:.15s; }
+  .dt-picker label.dt small { display:block; font-weight:400; font-size:11px; color:#888; margin-top:3px; }
+  .dt-picker input:checked + label.dt { border-color:var(--navy); background:var(--navy); color:#fff; }
+  .dt-picker input:checked + label.dt small { color:var(--gold); }
+  .panel { display:none; background:#F7F4ED; border:1px dashed var(--gold); border-radius:10px; padding:6px 18px 18px; margin-top:14px; }
+  .panel.active { display:block; }
+  .panel h3 { font-size:13.5px; color:var(--navy2); margin-top:14px; }
+  .btn { display:block; width:100%; margin-top:28px; background:var(--navy); color:#fff; border:none; border-radius:10px; padding:15px; font:inherit; font-size:16px; font-weight:700; cursor:pointer; }
+  .btn:hover { background:var(--navy2); }
+  .btn:disabled { background:#999; cursor:wait; }
+  #status { margin-top:14px; padding:13px 16px; border-radius:8px; font-size:14px; display:none; }
+  #status.ok { display:block; background:#e8f5ec; color:#1c6b34; border:1px solid #9fd4ae; }
+  #status.err { display:block; background:#fdeaea; color:var(--red); border:1px solid #f0b4b4; }
+  .badge { display:inline-block; background:var(--gold); color:var(--navy); font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; vertical-align:middle; margin-left:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>LexFin Capital — <span>Deal Intake Form v5</span></h1>
+    <p>Pháp Lý Sạch — Vốn Chạy · CEO ONLY · Form động theo loại deal · Đính kèm hồ sơ gốc qua Google Drive</p>
+  </header>
+  <div class="card">
+    <form id="dealForm">
+
+      <h2>1 · Loại deal <span class="badge">điều khiển form &amp; routing</span></h2>
+      <div class="dt-picker">
+        <input type="radio" name="deal_type_form" id="dt1" value="PHAP_LY_CA_NHAN" checked>
+        <label class="dt" for="dt1">Pháp lý BĐS cá nhân<small>GCN · hoàn công · tách thửa</small></label>
+        <input type="radio" name="deal_type_form" id="dt2" value="PHAP_LY_DN">
+        <label class="dt" for="dt2">Dự án 1/500 · NOXH<small>CĐT · chủ trương · GPXD</small></label>
+        <input type="radio" name="deal_type_form" id="dt3" value="TAI_CHINH_CA_NHAN">
+        <label class="dt" for="dt3">Vay vốn cá nhân<small>LTV · DTI · CIC</small></label>
+        <input type="radio" name="deal_type_form" id="dt4" value="TAI_CHINH_DN">
+        <label class="dt" for="dt4">Vốn doanh nghiệp<small>HMTD · DSCR · D/E</small></label>
+      </div>
+
+      <h2>2 · Thông tin chung</h2>
+      <div class="grid2">
+        <div><label>Họ tên khách hàng <span class="req">*</span></label><input type="text" name="ho_ten" required></div>
+        <div><label>Số điện thoại <span class="req">*</span></label><input type="text" name="so_dien_thoai" required></div>
+        <div><label>Email khách</label><input type="text" name="email"></div>
+        <div><label>Loại khách</label><select name="loai_khach"><option value="ca_nhan">Cá nhân</option><option value="doanh_nghiep">Doanh nghiệp</option><option value="chu_dau_tu">Chủ đầu tư</option></select></div>
+      </div>
+      <label>Địa chỉ tài sản / trụ sở DN <span class="req">*</span></label><input type="text" name="dia_chi" required>
+      <label>📁 Link folder Google Drive hồ sơ gốc <span class="hint">(GCN, trích lục, BCTC… — dán link folder)</span></label>
+      <input type="url" name="link_ho_so" placeholder="https://drive.google.com/drive/folders/...">
+      <label>Hồ sơ hiện có <span class="hint">(liệt kê nhanh)</span></label><textarea name="ho_so_hien_co" style="min-height:64px"></textarea>
+      <div class="grid2">
+        <div><label>Timeline mong muốn</label><select name="timeline"><option value="gap_duoi_1_thang">Gấp — dưới 1 tháng</option><option value="1_3_thang">1–3 tháng</option><option value="linh_dong" selected>Linh động</option></select></div>
+        <div><label>Phân loại sơ bộ của CEO</label><select name="phan_loai"><option value="GREEN">GREEN — sạch, sẵn sàng</option><option value="YELLOW" selected>YELLOW — vướng nhẹ 3-6 tháng</option><option value="RED">RED — vướng nặng</option></select></div>
+      </div>
+      <label>CEO Note <span class="hint">(chỉ đạo góc phân tích cho các Agent)</span></label><textarea name="ceo_note"></textarea>
+
+      <h2>3 · Thông tin chuyên biệt theo loại deal</h2>
+
+      <!-- B. PHAP_LY_CA_NHAN -->
+      <div class="panel" id="p-PHAP_LY_CA_NHAN">
+        <div class="grid2">
+          <div><label>Vấn đề pháp lý chính</label><select name="b_van_de"><option>Cấp GCN lần đầu</option><option>Hoàn công nhà / công trình</option><option>Tách - hợp thửa</option><option>Chuyển mục đích sử dụng đất</option><option>Tranh chấp / ngăn chặn</option><option>Dính quy hoạch</option><option>Khác</option></select></div>
+          <div><label>Tình trạng GCN</label><select name="b_gcn"><option>Bản gốc trong tay</option><option>Đang thế chấp ngân hàng</option><option>Chưa có GCN</option><option>Thất lạc</option><option>Chưa rõ</option></select></div>
+        </div>
+        <label>Thông tin thửa đất <span class="hint">(mỗi thửa: số thửa, tờ bản đồ, diện tích, MĐSD, thời hạn)</span></label>
+        <textarea name="b_thua_dat" placeholder="VD: Thửa 1430, tờ BĐ 17, 200m2, Đất ở đô thị, lâu dài"></textarea>
+        <div class="grid2">
+          <div><label>Hiện trạng xây dựng</label><select name="b_hien_trang"><option>Đất trống</option><option>Nhà chưa hoàn công</option><option>Nhà đã hoàn công</option><option>Có hạng mục sai phép</option><option>Chưa rõ</option></select></div>
+          <div><label>Tranh chấp / ngăn chặn</label><select name="b_tranh_chap"><option>Không</option><option>Có (mô tả ở quy hoạch bên dưới)</option><option>Chưa rõ</option></select></div>
+          <div><label>Nghĩa vụ tài chính đất</label><select name="b_nghia_vu"><option>Đã hoàn thành</option><option>Còn nợ thuế / LPTB</option><option>Chưa rõ</option></select></div>
+          <div><label>Mục tiêu cuối</label><select name="b_muc_tieu"><option>Bán</option><option>Thế chấp vay vốn</option><option>Để ở</option><option>Thừa kế / chia tách</option></select></div>
+        </div>
+        <label>Quy hoạch đã biết <span class="hint">(trích lục mới nhất, lộ giới, QH 1/2000 + mô tả tranh chấp nếu có)</span></label>
+        <textarea name="b_quy_hoach"></textarea>
+      </div>
+
+      <!-- C. PHAP_LY_DN -->
+      <div class="panel" id="p-PHAP_LY_DN">
+        <div class="grid2">
+          <div><label>Loại dự án</label><select name="c_loai_da"><option>KDC thương mại</option><option>NOXH</option><option>Hỗn hợp (NOXH + TMDV)</option><option>TMDV</option><option>Khác</option></select></div>
+          <div><label>Bước pháp lý hiện tại <span class="req">*</span></label><select name="c_buoc"><option>Chưa có gì</option><option>Có chấp thuận chủ trương đầu tư</option><option>Có quy hoạch 1/500</option><option>Có GPXD</option><option>Đang xây dựng</option></select></div>
+        </div>
+        <label>Cơ cấu quỹ đất <span class="hint">(mỗi thửa: số thửa, tờ BĐ, diện tích, MĐSD, thời hạn)</span></label>
+        <textarea name="c_quy_dat"></textarea>
+        <div class="grid2">
+          <div><label>% đất ở hợp pháp trên tổng quỹ đất</label><input type="text" name="c_ty_le_dat_o" placeholder="VD: 3,9%"></div>
+          <div><label>Phù hợp QH cấp trên</label><select name="c_qh_cap_tren"><option>Đã nằm trong QH đất ở</option><option>Một phần</option><option>Chưa rõ</option><option>Trái quy hoạch</option></select></div>
+          <div><label>GPMB</label><select name="c_gpmb"><option>Sạch 100%</option><option>Còn vướng một phần</option><option>Chưa GPMB</option><option>Chưa rõ</option></select></div>
+          <div><label>Pháp nhân CĐT</label><select name="c_phap_nhan"><option>Đã có pháp nhân đủ điều kiện</option><option>Đang lập</option><option>Cá nhân đứng tên</option></select></div>
+          <div><label>Vốn chủ sở hữu hiện có (VND tỷ)</label><input type="text" name="c_von_csh" placeholder="VD: 120"></div>
+          <div><label>Tổng mức đầu tư ước (VND tỷ)</label><input type="text" name="c_tmdt" placeholder="VD: 500-600"></div>
+        </div>
+        <label>Mục tiêu cuối</label><select name="c_muc_tieu"><option>Tự phát triển</option><option>M&amp;A trong nước</option><option>M&amp;A nước ngoài</option><option>Huy động vốn ngân hàng</option></select>
+      </div>
+
+      <!-- D. TAI_CHINH_CA_NHAN -->
+      <div class="panel" id="p-TAI_CHINH_CA_NHAN">
+        <div class="grid2">
+          <div><label>Mục đích vay</label><select name="d_muc_dich"><option>Mua BĐS</option><option>Xây / sửa nhà</option><option>Sản xuất kinh doanh</option><option>Tiêu dùng có TSBĐ</option><option>Cơ cấu lại nợ</option></select></div>
+          <div><label>Số tiền cần vay (VND tỷ) <span class="req">*</span></label><input type="text" name="d_so_tien" placeholder="VD: 5"></div>
+          <div><label>Thời hạn mong muốn</label><select name="d_thoi_han"><option>≤ 12 tháng</option><option>1–5 năm</option><option>5–20 năm</option></select></div>
+          <div><label>Giá trị TSBĐ ước (VND tỷ)</label><input type="text" name="d_gia_tri_tsbd" placeholder="VD: 8 → LTV"></div>
+        </div>
+        <label>TSBĐ — mô tả <span class="hint">(loại, vị trí, tình trạng GCN)</span></label><textarea name="d_tsbd" style="min-height:64px"></textarea>
+        <div class="grid2">
+          <div><label>Nguồn thu nhập</label><select name="d_nguon_tn"><option>Lương chuyển khoản</option><option>Kinh doanh có sổ sách</option><option>Cho thuê tài sản</option><option>Khó chứng minh</option></select></div>
+          <div><label>Thu nhập / tháng (VND triệu)</label><input type="text" name="d_thu_nhap" placeholder="VD: 120 → DTI"></div>
+          <div><label>CIC tự khai</label><select name="d_cic"><option>Nhóm 1 — sạch</option><option>Từng chậm dưới 10 ngày</option><option>Nhóm 2 trở lên</option><option>Chưa rõ</option></select></div>
+        </div>
+        <label>Dư nợ hiện tại <span class="hint">(ngân hàng, dư nợ, trả góp/tháng)</span></label><textarea name="d_du_no" style="min-height:64px"></textarea>
+      </div>
+
+      <!-- E. TAI_CHINH_DN -->
+      <div class="panel" id="p-TAI_CHINH_DN">
+        <div class="grid2">
+          <div><label>Nhu cầu vốn</label><select name="e_nhu_cau"><option>HMTD vốn lưu động</option><option>Vay trung - dài hạn đầu tư</option><option>Bảo lãnh</option><option>Tái cấu trúc nợ</option></select></div>
+          <div><label>Số tiền (VND tỷ) <span class="req">*</span></label><input type="text" name="e_so_tien" placeholder="VD: 50"></div>
+          <div><label>Thời hạn</label><select name="e_thoi_han"><option>≤ 12 tháng</option><option>1–5 năm</option><option>Trên 5 năm</option></select></div>
+          <div><label>Ngành nghề & số năm hoạt động</label><input type="text" name="e_nganh" placeholder="VD: Xây dựng, 8 năm"></div>
+          <div><label>Doanh thu năm trước (VND tỷ)</label><input type="text" name="e_dt_n1"></div>
+          <div><label>Doanh thu năm nay ước (VND tỷ)</label><input type="text" name="e_dt_n"></div>
+          <div><label>Lợi nhuận / EBITDA ước (VND tỷ)</label><input type="text" name="e_ebitda" placeholder="→ Nợ/EBITDA, DSCR"></div>
+          <div><label>Vốn chủ sở hữu (VND tỷ)</label><input type="text" name="e_von_csh" placeholder="→ D/E"></div>
+          <div><label>Chất lượng BCTC</label><select name="e_bctc"><option>Có kiểm toán</option><option>Nội bộ</option><option>Chỉ báo cáo thuế</option></select></div>
+          <div><label>CIC doanh nghiệp</label><select name="e_cic"><option>Nhóm 1</option><option>Có nợ chú ý</option><option>Chưa rõ</option></select></div>
+          <div><label>Giá trị TSBĐ ước (VND tỷ)</label><input type="text" name="e_gia_tri_tsbd" placeholder="→ LTV"></div>
+        </div>
+        <label>Tổng dư nợ NH hiện tại <span class="hint">(ngân hàng, loại khoản vay, dư nợ)</span></label><textarea name="e_du_no" style="min-height:64px"></textarea>
+        <label>TSBĐ — mô tả</label><textarea name="e_tsbd" style="min-height:64px"></textarea>
+      </div>
+
+      <button type="submit" class="btn" id="btnSubmit">🚀 GỬI DEAL VÀO LEXFIN AI OS</button>
+      <div id="status"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const WEBHOOK = "https://lexfincapital.app.n8n.cloud/webhook/lexfin-contact";
+const form = document.getElementById('dealForm');
+const panels = document.querySelectorAll('.panel');
+
+function activePanel() {
+  const v = form.deal_type_form.value;
+  panels.forEach(p => p.classList.toggle('active', p.id === 'p-' + v));
+}
+document.querySelectorAll('input[name=deal_type_form]').forEach(r => r.addEventListener('change', activePanel));
+activePanel();
+
+function val(n) { const el = form.elements[n]; return el ? (el.value || '').trim() : ''; }
+function line(label, n) { const v = val(n); return v ? label + ': ' + v : ''; }
+function block(label, n) { const v = val(n); return v ? label + ':\n' + v : ''; }
+
+function composeDetail(dt) {
+  let L = ['[FORM V5 — ' + dt + ']'];
+  if (dt === 'PHAP_LY_CA_NHAN') {
+    L.push(line('Vấn đề pháp lý chính','b_van_de'), line('Tình trạng GCN','b_gcn'),
+           block('Thông tin thửa đất','b_thua_dat'), line('Hiện trạng xây dựng','b_hien_trang'),
+           line('Tranh chấp / ngăn chặn','b_tranh_chap'), line('Nghĩa vụ tài chính đất','b_nghia_vu'),
+           line('Mục tiêu cuối','b_muc_tieu'), block('Quy hoạch đã biết','b_quy_hoach'));
+  } else if (dt === 'PHAP_LY_DN') {
+    L.push(line('Loại dự án','c_loai_da'), line('Bước pháp lý hiện tại','c_buoc'),
+           block('Cơ cấu quỹ đất','c_quy_dat'), line('% đất ở hợp pháp','c_ty_le_dat_o'),
+           line('Phù hợp QH cấp trên','c_qh_cap_tren'), line('GPMB','c_gpmb'),
+           line('Pháp nhân CĐT','c_phap_nhan'), line('Vốn chủ sở hữu hiện có (tỷ VND)','c_von_csh'),
+           line('Tổng mức đầu tư ước (tỷ VND)','c_tmdt'), line('Mục tiêu cuối','c_muc_tieu'));
+  } else if (dt === 'TAI_CHINH_CA_NHAN') {
+    L.push(line('Mục đích vay','d_muc_dich'), line('Số tiền cần vay (tỷ VND)','d_so_tien'),
+           line('Thời hạn mong muốn','d_thoi_han'), block('TSBĐ','d_tsbd'),
+           line('Giá trị TSBĐ ước (tỷ VND)','d_gia_tri_tsbd'),
+           line('Nguồn thu nhập','d_nguon_tn'), line('Thu nhập/tháng (triệu VND)','d_thu_nhap'),
+           block('Dư nợ hiện tại','d_du_no'), line('CIC tự khai','d_cic'));
+  } else {
+    L.push(line('Nhu cầu vốn','e_nhu_cau'), line('Số tiền (tỷ VND)','e_so_tien'),
+           line('Thời hạn','e_thoi_han'), line('Ngành nghề & năm hoạt động','e_nganh'),
+           line('Doanh thu năm trước (tỷ VND)','e_dt_n1'), line('Doanh thu năm nay ước (tỷ VND)','e_dt_n'),
+           line('Lợi nhuận/EBITDA ước (tỷ VND)','e_ebitda'), line('Vốn chủ sở hữu (tỷ VND)','e_von_csh'),
+           block('Tổng dư nợ NH hiện tại','e_du_no'), block('TSBĐ','e_tsbd'),
+           line('Giá trị TSBĐ ước (tỷ VND)','e_gia_tri_tsbd'),
+           line('Chất lượng BCTC','e_bctc'), line('CIC doanh nghiệp','e_cic'));
+  }
+  return L.filter(Boolean).join('\n');
+}
+
+function dealCode() {
+  const d = new Date(), p = n => String(n).padStart(2,'0');
+  return 'LFC-DEAL-' + d.getFullYear() + '-' + p(d.getMonth()+1) + p(d.getDate()) + '-' + Math.floor(100 + Math.random()*900);
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmit');
+  const st = document.getElementById('status');
+  const dt = form.deal_type_form.value;
+  const mucTieuMap = { PHAP_LY_CA_NHAN: val('b_muc_tieu'), PHAP_LY_DN: val('c_muc_tieu'),
+                       TAI_CHINH_CA_NHAN: val('d_muc_dich'), TAI_CHINH_DN: val('e_nhu_cau') };
+  const payload = {
+    contact_type: 'deal_full',
+    source: 'intake_form_v5',
+    timestamp: new Date().toISOString(),
+    deal_code: dealCode(),
+    deal_type_form: dt,
+    ho_ten: val('ho_ten'), so_dien_thoai: val('so_dien_thoai'), email: val('email'),
+    loai_khach: val('loai_khach'), dia_chi: val('dia_chi'),
+    link_ho_so: val('link_ho_so'), ho_so_hien_co: val('ho_so_hien_co'),
+    timeline: val('timeline'), phan_loai: val('phan_loai'), ceo_note: val('ceo_note'),
+    muc_tieu: mucTieuMap[dt] || '', nhu_cau: mucTieuMap[dt] || '',
+    van_de_chi_tiet: composeDetail(dt)
+  };
+  btn.disabled = true; btn.textContent = '⏳ Đang gửi vào pipeline...';
+  st.className = ''; st.style.display = 'none';
+  try {
+    const res = await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const txt = await res.text();
+    if (res.ok) { st.className = 'ok'; st.textContent = '✅ ' + payload.deal_code + ' đã vào pipeline. ' + txt + ' — Theo dõi email R&D và Telegram Dashboard (~15-20 phút).'; form.reset(); activePanel(); }
+    else { st.className = 'err'; st.textContent = '❌ Lỗi ' + res.status + ': ' + txt; }
+  } catch (err) { st.className = 'err'; st.textContent = '❌ Không gửi được: ' + err.message; }
+  btn.disabled = false; btn.textContent = '🚀 GỬI DEAL VÀO LEXFIN AI OS';
+});
+</script>
+</body>
+</html>

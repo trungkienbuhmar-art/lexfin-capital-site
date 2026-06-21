@@ -329,6 +329,10 @@
         <label>Số điện thoại *</label>
         <input type="tel" id="sdt" placeholder="0901234567" required>
       </div>
+      <div class="field span-2">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="email@example.com">
+      </div>
       <div class="field">
         <label>Nguồn lead</label>
         <select id="source">
@@ -535,6 +539,7 @@ I. THÔNG TIN KHÁCH HÀNG
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Họ tên: ${data.ten_file}
 SĐT: ${data.sdt}
+Email: ${data.email || '(Không có)'}
 Loại khách: ${data.loai_khach}
 Nguồn lead: ${data.source}
 
@@ -596,6 +601,7 @@ async function submitDeal() {
   const payload = {
     ho_ten: getVal('ten_file'),
     so_dien_thoai: getVal('sdt'),
+    email: getVal('email'),
     nhu_cau: getVal('muc_tieu') || getVal('van_de_chi_tiet').substring(0, 80),
     source: getVal('source'),
     contact_type: 'deal_full',
