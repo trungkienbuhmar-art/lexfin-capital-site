@@ -29,7 +29,7 @@ export const services = [
   {
     id: 'svc-1', no: '01', kicker: 'Pháp Lý',
     title: 'Pháp Lý BĐS · Doanh Nghiệp',
-    img: '/assets/svc-phap-ly-dn.png',
+    img: '/assets/svc-phap-ly-dn.webp',
     desc: 'Thẩm định chuyên sâu và hỗ trợ chuẩn bị toàn bộ hồ sơ pháp lý dự án — từ chủ trương đầu tư, quy hoạch 1/500, GPMB đến GPXD. Chuẩn hóa hồ sơ dự án sẵn sàng cho huy động vốn ngân hàng.',
     tags: ['Thẩm định dự án', 'Chủ trương đầu tư', 'Quy hoạch 1/500', 'GPMB', 'HSTK NCKT', 'GPXD'],
     cta: 'Nộp hồ sơ thẩm định',
@@ -42,7 +42,7 @@ export const services = [
   {
     id: 'svc-2', no: '02', kicker: 'Pháp Lý',
     title: 'Pháp Lý BĐS · Cá Nhân',
-    img: '/assets/svc-phap-ly-cn.png',
+    img: '/assets/svc-phap-ly-cn.webp',
     desc: 'Hỗ trợ nộp và xử lý pháp lý BĐS cá nhân — tháo gỡ vướng mắc của sổ đỏ, cập nhật GCN lên thông tin quy hoạch, hoàn công nhà lên sổ,...',
     tags: ['GCN', 'GCNQSDĐ', 'Hợp đồng mua bán', 'Tranh chấp'],
     cta: 'Gỡ vướng pháp lý',
@@ -55,7 +55,7 @@ export const services = [
   {
     id: 'svc-3', no: '03', kicker: 'Tài Chính',
     title: 'Tài Chính · Doanh Nghiệp',
-    img: '/assets/svc-tai-chinh-dn.png',
+    img: '/assets/svc-tai-chinh-dn.webp',
     desc: 'Tư vấn và định hướng cấu trúc vốn tối ưu cho doanh nghiệp — phân tích chuyên sâu các chỉ số tài chính doanh nghiệp và dự án, xây dựng hạn mức tín dụng và cấu trúc vốn dự án với ngân hàng.',
     tags: ['Phân tích chỉ số', 'Cấu trúc tài chính', 'Sức khỏe doanh nghiệp', 'Tư vấn cấu trúc chuyên sâu'],
     cta: 'Gửi hồ sơ chi tiết',
@@ -68,7 +68,7 @@ export const services = [
   {
     id: 'svc-4', no: '04', kicker: 'Tài Chính',
     title: 'Tài Chính · Cá Nhân',
-    img: '/assets/svc-tai-chinh-cn.png',
+    img: '/assets/svc-tai-chinh-cn.webp',
     desc: 'Tư vấn tài chính cá nhân — tư vấn xây dựng nền tảng hình ảnh cá nhân tài chính tốt, bền vững, đầu tư đa kênh thông minh, hỗ trợ đàm phán hạn mức ngân hàng,...',
     tags: ['Thẩm định chuyên sâu tài chính cá nhân', 'Xây dựng lộ trình tài chính bền vững', 'Đầu tư thông minh', 'Xây dựng hạn mức ngân hàng'],
     cta: 'Tư vấn tài chính',

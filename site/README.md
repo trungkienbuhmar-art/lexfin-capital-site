@@ -57,18 +57,23 @@ Hero dùng video "két sắt". Để trang tải nhanh (LCP tốt):
 - Poster `vault-poster.png` được `preload` → là phần tử LCP, hiện ngay lập tức.
 - `<video preload="none">` + chỉ `vid.load()` **sau** khi trang render xong → 7.7MB video không tranh băng thông lúc đầu.
 
-**Nén video xuống ~2MB (chạy trên máy có ffmpeg — 1 lần):**
-```bash
-# H.264, CRF 25, faststart (metadata đầu file để phát nhanh) → thường ~2–2.8MB
-ffmpeg -i vault-hero.mp4 -c:v libx264 -crf 25 -preset slow \
-  -vf scale=1280:-2 -pix_fmt yuv420p -an -movflags +faststart vault-hero-opt.mp4
-mv vault-hero-opt.mp4 public/assets/vault-hero.mp4    # ghi đè, không cần sửa code
+**Video đã được nén sẵn (đã đưa vào repo):**
 
-# (tuỳ chọn) WebM/VP9 nhẹ hơn ~40% → mở comment <source> webm trong Hero.astro
-ffmpeg -i vault-hero.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an public/assets/vault-hero.webm
+| File | Trước | Sau | Cách nén |
+|---|---|---|---|
+| `vault-hero.mp4` | 7.7 MB | **1.57 MB** | H.264 CRF 23 @ 1366w, `+faststart` |
+| `vault-hero.webm` | — | **1.01 MB** | VP9 CRF 32 @ 1366w (ưu tiên tải) |
+| `vault-poster.webp` | 1.46 MB (png) | **51 KB** | WebP q82 — là ảnh LCP |
+
+`<video>` dùng 2 `<source>` (webm → mp4) + poster WebP; trình duyệt tự chọn định dạng nhẹ nhất.
+
+**Nếu cần nén lại từ bản gốc (chạy trên máy có ffmpeg):**
+```bash
+ffmpeg -i vault-hero.mp4 -c:v libx264 -crf 23 -preset slow \
+  -vf scale=1366:-2 -pix_fmt yuv420p -an -movflags +faststart out.mp4
+ffmpeg -i vault-hero.mp4 -c:v libvpx-vp9 -crf 32 -b:v 0 -vf scale=1366:-2 -an out.webm
 ```
-> Cảnh: `two-pass` hoặc CRF 23–26 cho cân bằng đẹp/nhẹ. Cảnh két tối nén rất tốt, hầu như không thấy khác biệt.
-> Nếu tạo `vault-hero.webm`, bỏ comment dòng `<source ... webm>` trong `src/components/Hero.astro`.
+> CRF thấp hơn = nét hơn/nặng hơn (21–25 là vùng đẹp). Cảnh két tối nén rất tốt, gần như không thấy khác biệt.
 
 ## Cập nhật nội dung
 - Sửa copy dịch vụ / metrics / status: `src/data/content.js`
