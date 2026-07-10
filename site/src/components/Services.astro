@@ -1,0 +1,127 @@
+---
+import { services } from '../data/content.js';
+---
+<section id="services" class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-hd svc-intro">
+      <div>
+        <p class="eyebrow"><span class="t-label">Dịch Vụ Cốt Lõi</span></p>
+        <h2 class="t-h2">Pháp Lý Sạch, <span class="gold">Vốn Chạy.</span></h2>
+      </div>
+      <p class="svc-note t-lead">
+        Không xử lý riêng lẻ. LexFin đồng thời chuẩn hóa hồ sơ pháp lý và cấu trúc tài chính —
+        để deal được chốt nhanh nhất, ít rủi ro nhất.
+      </p>
+    </div>
+
+    <div class="svc-grid">
+      {services.map((s) => (
+        <article class="svc-card r" data-modal-open={s.id}>
+          <div class="svc-media">
+            <img src={s.img} alt={s.title} loading="lazy" width="640" height="400" />
+            <span class="svc-no mono">{s.no} — {s.kicker}</span>
+          </div>
+          <div class="svc-body">
+            <h3 class="t-h3">{s.title}</h3>
+            <p class="svc-desc">{s.desc}</p>
+            <ul class="svc-tags">
+              {s.tags.map((t) => (<li>{t}</li>))}
+            </ul>
+            <div class="svc-actions">
+              <button class="cta-link" type="button" data-modal-open={s.id}>{s.cta} <span class="arw">→</span></button>
+              <button class="svc-detail" type="button" data-modal-open={s.id}>Tìm hiểu chi tiết →</button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Service modals -->
+{services.map((s) => (
+  <div class="modal-overlay" id={s.id} data-modal role="dialog" aria-modal="true" aria-labelledby={`${s.id}-t`}>
+    <div class="modal-panel">
+      <button class="modal-x" type="button" data-modal-close aria-label="Đóng">✕</button>
+      <span class="modal-kicker mono">{s.no} — {s.kicker}</span>
+      <h3 id={`${s.id}-t`} class="modal-title t-h3">{s.title}</h3>
+
+      <div class="modal-sect">
+        <span class="modal-lbl t-label">Hạng mục công việc</span>
+        <ul class="modal-items">
+          {s.modal.items.map((it) => (<li>{it}</li>))}
+        </ul>
+      </div>
+
+      <div class="modal-sect">
+        <span class="modal-lbl t-label">Quy trình xử lý</span>
+        <ol class="modal-steps">
+          {s.modal.steps.map((st, i) => (
+            <li><span class="ms-no mono">{String(i + 1).padStart(2, '0')}</span>{st}</li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="modal-sect modal-time">
+        <span class="modal-lbl t-label">Thời gian</span>
+        <p>{s.modal.time}</p>
+      </div>
+
+      <a href="#contact" class="btn btn-gold modal-cta" data-modal-close>Gửi Hồ Sơ Tư Vấn <span class="arw">→</span></a>
+    </div>
+  </div>
+))}
+
+<style>
+  .svc-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+  .svc-note { color: var(--m); }
+
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .svc-card {
+    background: var(--w);
+    border: 1px solid var(--dl);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2), border-color var(--dur-2);
+    cursor: pointer; position: relative;
+  }
+  .svc-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; z-index: 2;
+    background: var(--g500); transform: scaleY(0); transform-origin: bottom;
+    transition: transform var(--dur-2) var(--ease);
+  }
+  .svc-card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); border-color: var(--gl); }
+  .svc-card:hover::before { transform: scaleY(1); }
+
+  .svc-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--n800); }
+  .svc-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+  .svc-card:hover .svc-media img { transform: scale(1.05); }
+  .svc-no {
+    position: absolute; left: 16px; top: 14px; z-index: 2;
+    font-size: 11px; letter-spacing: .16em; color: var(--g300);
+    background: rgba(6,16,42,.7); backdrop-filter: blur(6px);
+    padding: 6px 12px; border-radius: 100px; border: 1px solid var(--gl);
+  }
+  .svc-body { padding: 28px 28px 30px; display: flex; flex-direction: column; flex: 1; }
+  .svc-body h3 { color: var(--ink); }
+  .svc-desc { color: var(--m); font-size: 14.5px; line-height: 1.7; margin: 12px 0 18px; flex: 1; }
+  .svc-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin-bottom: 22px; }
+  .svc-tags li {
+    font: 400 11px 'DM Mono', monospace; letter-spacing: .04em; color: var(--m);
+    border: 1px solid var(--dl); border-radius: 100px; padding: 5px 11px;
+  }
+  .svc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: auto; }
+  .svc-actions .cta-link { color: var(--ink); }
+  .svc-actions .cta-link:hover { color: var(--n600); }
+  .svc-detail {
+    font: 400 12.5px 'DM Sans', sans-serif; color: var(--m);
+    transition: color var(--dur-2);
+  }
+  .svc-detail:hover { color: var(--n700); }
+
+  @media (max-width: 900px) {
+    .svc-intro { grid-template-columns: 1fr; gap: 20px; }
+    .svc-grid { grid-template-columns: 1fr; }
+  }
+</style>

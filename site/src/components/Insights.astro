@@ -1,0 +1,113 @@
+---
+import { insights } from '../data/insights.js';
+---
+<section id="insights" class="sec sec-deep insights">
+  <div class="wrap">
+    <div class="sec-hd">
+      <p class="eyebrow"><span class="t-label">LFC Insights</span></p>
+      <h2 class="t-h2">Báo Cáo, <span class="gold">Chuyên Sâu.</span></h2>
+      <p class="ins-intro t-lead">
+        Tài liệu thực chiến từ hàng trăm deal — không lý thuyết, chỉ insight áp dụng được ngay.
+      </p>
+    </div>
+
+    <ul class="ins-list">
+      {insights.map((a) => (
+        <li class="ins-row r" data-ins-open={a.id}>
+          <div class="ins-meta">
+            <span class="ins-cat mono">{a.cat}</span>
+            <span class="ins-dot" aria-hidden="true">·</span>
+            <span class="mono">{a.read}</span>
+            <span class="ins-dot" aria-hidden="true">·</span>
+            <span class="mono ins-docid">{a.docId}</span>
+          </div>
+          <h3 class="ins-title t-h3">{a.title}</h3>
+          <p class="ins-teaser">{a.teaser}</p>
+          <button class="cta-link ins-cta" type="button" data-ins-open={a.id}>Đọc tiếp <span class="arw">→</span></button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- Article modals -->
+{insights.map((a) => (
+  <div class="ins-modal-overlay" id={a.id} data-ins role="dialog" aria-modal="true" aria-labelledby={`${a.id}-t`}>
+    <article class="ins-modal-panel">
+      <button class="ins-modal-x" type="button" data-ins-close aria-label="Đóng">✕</button>
+      <span class="ins-art-cat mono">{a.cat}</span>
+      <p class="ins-art-meta mono">{a.date} · {a.docId} · {a.read}</p>
+      <h2 id={`${a.id}-t`} class="ins-art-title">{a.title}</h2>
+      <div class="ins-art-body">
+        {a.body.map((b) => {
+          if (b.type === 'p') return <p>{b.text}</p>;
+          if (b.type === 'h') return <h3>{b.text}</h3>;
+          if (b.type === 'sign') return <p class="ins-sign">— {b.text}</p>;
+          if (b.type === 'callout') return (
+            <div class={`ins-callout ${b.tone}`}>
+              <span class="ins-callout-lbl">{b.label}</span>
+              <span>{b.text}</span>
+            </div>
+          );
+          if (b.type === 'list') {
+            const Tag = b.ordered ? 'ol' : 'ul';
+            return <Tag class={b.ordered ? 'ins-ol' : 'ins-ul'}>{b.items.map((it) => <li>{it}</li>)}</Tag>;
+          }
+          return null;
+        })}
+      </div>
+      <a href="#contact" class="btn btn-gold ins-art-cta" data-ins-close>Thẩm Định Hồ Sơ Của Bạn <span class="arw">→</span></a>
+    </article>
+  </div>
+))}
+
+<style>
+  .ins-intro { color: var(--mh); max-width: 560px; margin-top: 16px; }
+  .ins-list { list-style: none; }
+  .ins-row {
+    display: grid; gap: 12px;
+    padding: clamp(26px, 3.4vw, 38px) 0;
+    border-top: 1px solid var(--dd);
+    cursor: pointer;
+    transition: padding-left var(--dur-2) var(--ease);
+  }
+  .ins-row:last-child { border-bottom: 1px solid var(--dd); }
+  .ins-row:hover { padding-left: 10px; }
+  .ins-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 11px; color: var(--m); }
+  .ins-cat { color: var(--g400); letter-spacing: .12em; }
+  .ins-dot { color: var(--m); }
+  .ins-docid { color: var(--ml); }
+  .ins-title { color: var(--w); max-width: 780px; transition: color var(--dur-2); }
+  .ins-row:hover .ins-title { color: var(--g300); }
+  .ins-teaser { color: var(--mh); font-size: 14.5px; line-height: 1.75; max-width: 720px; }
+  .ins-cta { color: var(--g500); width: max-content; }
+
+  /* Article body */
+  .ins-art-cat { display: block; font-size: 11px; letter-spacing: .16em; color: var(--g400); margin-bottom: 8px; }
+  .ins-art-meta { font-size: 11px; color: var(--m); margin-bottom: 16px; }
+  .ins-art-title {
+    font: 700 clamp(22px, 2.6vw, 30px)/1.2 'DM Sans', sans-serif;
+    color: var(--w); letter-spacing: -.01em; margin-bottom: 24px; padding-right: 36px;
+  }
+  .ins-art-body { display: grid; gap: 16px; }
+  .ins-art-body h3 { font: 700 17px 'DM Sans', sans-serif; color: var(--g300); margin-top: 12px; }
+  .ins-art-body p { color: var(--mh); font-size: 15px; line-height: 1.85; }
+  .ins-ul, .ins-ol { display: grid; gap: 9px; padding-left: 4px; }
+  .ins-ul li, .ins-ol li { color: var(--mh); font-size: 14.5px; line-height: 1.7; padding-left: 24px; position: relative; }
+  .ins-ul li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 7px; height: 7px; border: 1.5px solid var(--g500); border-radius: 2px; }
+  .ins-ol { counter-reset: c; }
+  .ins-ol li { counter-increment: c; }
+  .ins-ol li::before { content: counter(c); position: absolute; left: 0; top: 0; font: 500 12px 'DM Mono', monospace; color: var(--g500); }
+  .ins-callout {
+    display: grid; gap: 4px;
+    padding: 14px 16px; border-radius: var(--r-sm);
+    border-left: 3px solid var(--tone-c); background: var(--tone-bg);
+  }
+  .ins-callout.risk { --tone-c: var(--red); --tone-bg: rgba(192,73,46,.1); }
+  .ins-callout.fix  { --tone-c: var(--green); --tone-bg: rgba(62,142,90,.1); }
+  .ins-callout.note { --tone-c: var(--g500); --tone-bg: var(--g100); }
+  .ins-callout-lbl { font: 700 11px 'DM Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--tone-c); }
+  .ins-callout span:not(.ins-callout-lbl) { color: var(--mh); font-size: 14px; line-height: 1.7; }
+  .ins-sign { font-style: italic; color: var(--ml); border-top: 1px solid var(--dd); padding-top: 16px; margin-top: 6px; }
+  .ins-art-cta { margin-top: 26px; width: 100%; }
+</style>

@@ -1,0 +1,266 @@
+---
+// Signature hero — "két sắt" cinematic reveal (scroll-scrubbed video → brand → content)
+---
+<section id="top" class="hero">
+  <div id="vaultStage" class="vault-stage">
+    <video
+      id="vaultVideo"
+      class="vault-video"
+      poster="/assets/vault-poster.png"
+      muted playsinline preload="auto" tabindex="-1" aria-hidden="true"
+    >
+      <source src="/assets/vault-hero.mp4" type="video/mp4" />
+    </video>
+
+    <canvas id="particles" class="particles" aria-hidden="true"></canvas>
+    <div class="hero-mesh" aria-hidden="true"></div>
+    <div id="veil" class="veil" aria-hidden="true"></div>
+
+    <!-- Cinematic brand reveal -->
+    <div id="brandReveal" class="brand-reveal" aria-hidden="true">
+      <img id="brandMark" class="brand-mark" src="/img/brand-mark.svg" alt="" width="120" height="136" />
+      <div class="brand-name">
+        <span class="bn-lex">Lex<span class="bn-fin">Fin</span></span>
+        <span class="bn-cap">Capital</span>
+      </div>
+    </div>
+
+    <div id="vaultHint" class="vault-hint">
+      <span class="t-label">Cuộn để mở khóa</span>
+      <span class="vh-arrow">↓</span>
+    </div>
+
+    <!-- Hero payload -->
+    <div id="heroContent" class="hero-content">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="t-label">Deal Maker · AI-First Company</span></p>
+          <h1 class="t-hero hero-title">
+            Khai Thông Pháp Lý<br />
+            Mở Lối <span class="gold serif-i">Dòng Tiền.</span>
+          </h1>
+          <p class="hero-sub t-lead">
+            LexFin Capital hỗ trợ xử lý pháp lý BĐS và tư vấn cấu trúc tài chính —
+            giúp doanh nghiệp và cá nhân chốt deal nhanh hơn, ít rủi ro hơn.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-gold">Thẩm Định Hồ Sơ 24h <span class="arw">→</span></a>
+            <a href="#insights" class="btn btn-ghost">Tải LFC Report</a>
+          </div>
+          <p class="hero-trust">
+            <span class="live-dot"></span>
+            Tin cậy bởi <strong>200+</strong> chủ đầu tư &amp; doanh nghiệp tại Việt Nam
+          </p>
+        </div>
+
+        <!-- Report card -->
+        <aside class="report-card" aria-label="Báo cáo thẩm định mẫu">
+          <div class="rc-head">
+            <div>
+              <span class="rc-docid mono">LFC-ASSESS-Q2.2026</span>
+              <h3 class="rc-title">Báo Cáo Thẩm Định</h3>
+            </div>
+            <span class="rc-status"><span class="live-dot"></span>Đang xử lý</span>
+          </div>
+
+          <div class="rc-chart">
+            <span class="rc-chart-label t-label">Deal Pipeline — 6 tháng gần nhất (tỷ đồng)</span>
+            <div class="rc-bars" aria-hidden="true">
+              <span class="rc-bar" style="--h:38%"></span>
+              <span class="rc-bar" style="--h:52%"></span>
+              <span class="rc-bar" style="--h:46%"></span>
+              <span class="rc-bar" style="--h:68%"></span>
+              <span class="rc-bar" style="--h:80%"></span>
+              <span class="rc-bar rc-bar-hi" style="--h:96%"></span>
+            </div>
+            <div class="rc-xaxis mono">
+              <span>T11</span><span>T12</span><span>T1</span><span>T2</span><span>T3</span><span>T4</span>
+            </div>
+          </div>
+
+          <div class="rc-metrics">
+            <div><b class="mono">1.42×</b><span>DSCR</span></div>
+            <div><b class="mono">68%</b><span>LTV</span></div>
+            <div><b class="mono">31%</b><span>DTI</span></div>
+          </div>
+
+          <div class="rc-progress">
+            <div class="rc-progress-top">
+              <span>Tỷ lệ duyệt</span><b class="mono">95%</b>
+            </div>
+            <div class="rc-track"><span id="prog" class="rc-fill"></span></div>
+          </div>
+
+          <div class="rc-foot">
+            <span class="rc-chip green">Pháp lý ✓ Hoàn tất</span>
+            <span class="rc-chip amber">Tài chính ⟳ Processing</span>
+          </div>
+          <p class="rc-note mono">Hiện tại · Dự án NOXH 2ha · Bình Chánh · 800 tỷ</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; background: var(--n900); }
+  .vault-stage {
+    position: relative; height: 100vh; height: 100dvh; min-height: 640px;
+    overflow: hidden;
+  }
+  .vault-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 0; opacity: .9;
+  }
+  .particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .hero-mesh {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 92% 4%, rgba(200,168,75,.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 65% at 2% 92%, rgba(200,168,75,.06) 0%, transparent 55%),
+      linear-gradient(180deg, rgba(6,16,42,.35) 0%, rgba(6,16,42,.15) 40%, rgba(13,30,71,.72) 100%);
+  }
+  .veil {
+    position: absolute; inset: 0; z-index: 2; opacity: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 42%, rgba(13,30,71,.55) 0%, var(--n800) 78%);
+  }
+
+  /* Brand reveal */
+  .brand-reveal {
+    position: absolute; inset: 0; z-index: 3;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 26px; pointer-events: none;
+  }
+  .brand-mark { width: clamp(78px, 10vw, 118px); height: auto; opacity: 0; }
+  .brand-name { text-align: center; }
+  .bn-lex {
+    display: block; font: 800 clamp(34px, 5vw, 60px) 'DM Sans', sans-serif;
+    letter-spacing: .02em; color: var(--w); opacity: 0;
+  }
+  .bn-fin { color: var(--g500); }
+  .bn-cap {
+    display: block; margin-top: 8px;
+    font: 300 clamp(11px, 1.4vw, 15px) 'DM Sans', sans-serif;
+    letter-spacing: .62em; text-transform: uppercase; color: var(--ml); opacity: 0;
+    padding-left: .62em;
+  }
+
+  .vault-hint {
+    position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); z-index: 4;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    color: var(--ml);
+  }
+  .vault-hint .t-label { color: var(--g400); }
+  .vh-arrow { font-size: 18px; color: var(--g500); animation: bob 1.8s var(--ease) infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+
+  /* Hero content */
+  .hero-content {
+    position: absolute; inset: 0; z-index: 5;
+    display: flex; align-items: center;
+    visibility: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 72px);
+    align-items: center; width: 100%; padding-top: var(--nav-h);
+  }
+  .hero-title { margin: 18px 0 22px; color: var(--w); }
+  .serif-i { font-style: italic; }
+  .hero-sub { color: var(--mh); max-width: 480px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0 26px; }
+  .hero-trust {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13.5px; color: var(--ml);
+  }
+  .hero-trust strong { color: var(--g400); font-weight: 700; }
+
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #46C46B;
+    box-shadow: 0 0 0 0 rgba(70,196,107,.6); animation: pulse 2s infinite; flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(70,196,107,.5); }
+    70% { box-shadow: 0 0 0 8px rgba(70,196,107,0); }
+    100% { box-shadow: 0 0 0 0 rgba(70,196,107,0); }
+  }
+
+  /* Report card */
+  .report-card {
+    background: linear-gradient(165deg, rgba(18,34,74,.94), rgba(9,20,44,.96));
+    border: 1px solid var(--gl);
+    border-radius: var(--r-lg);
+    padding: 26px;
+    box-shadow: var(--sh-3);
+    position: relative; overflow: hidden;
+  }
+  .report-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(var(--g400), var(--g500));
+  }
+  .rc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .rc-docid { font-size: 10.5px; letter-spacing: .16em; color: var(--g400); }
+  .rc-title { font: 700 18px 'DM Sans', sans-serif; color: var(--w); margin-top: 6px; }
+  .rc-status {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; color: var(--ml);
+    background: rgba(70,196,107,.1); border: 1px solid rgba(70,196,107,.25);
+    padding: 5px 10px; border-radius: 100px; white-space: nowrap;
+  }
+  .rc-chart { margin: 22px 0 18px; }
+  .rc-chart-label { color: var(--ml); display: block; margin-bottom: 12px; font-size: 9.5px; }
+  .rc-bars {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+    height: 92px; align-items: end;
+    border-bottom: 1px solid var(--dd); padding-bottom: 2px;
+  }
+  .rc-bar {
+    height: var(--h); border-radius: 3px 3px 0 0;
+    background: rgba(200,168,75,.28);
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform .7s var(--ease);
+  }
+  .rc-bar-hi { background: linear-gradient(var(--g400), var(--g500)); box-shadow: 0 0 18px rgba(200,168,75,.3); }
+  .rc-xaxis {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+    margin-top: 8px; font-size: 10px; color: var(--m); text-align: center;
+  }
+  .rc-metrics {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    padding: 16px 0; border-block: 1px solid var(--dd);
+  }
+  .rc-metrics div { display: flex; flex-direction: column; gap: 4px; }
+  .rc-metrics b { font-size: 20px; color: var(--g400); font-weight: 500; }
+  .rc-metrics span { font-size: 11px; color: var(--ml); letter-spacing: .1em; }
+  .rc-progress { margin: 18px 0 16px; }
+  .rc-progress-top { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ml); margin-bottom: 8px; }
+  .rc-progress-top b { color: var(--w); }
+  .rc-track { height: 7px; background: rgba(255,255,255,.06); border-radius: 100px; overflow: hidden; }
+  .rc-fill {
+    display: block; height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--g500), var(--g300));
+    border-radius: 100px; transition: width 1.4s var(--ease);
+  }
+  .rc-foot { display: flex; flex-wrap: wrap; gap: 8px; }
+  .rc-chip {
+    font-size: 11px; padding: 6px 11px; border-radius: 100px;
+    border: 1px solid var(--dd);
+  }
+  .rc-chip.green { color: #7FD99A; background: rgba(70,196,107,.08); border-color: rgba(70,196,107,.22); }
+  .rc-chip.amber { color: var(--g300); background: var(--g100); border-color: var(--gl); }
+  .rc-note { margin-top: 14px; font-size: 10.5px; color: var(--m); letter-spacing: .04em; }
+
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .report-card { display: none; }
+    .hero-sub { max-width: 560px; }
+  }
+  @media (max-width: 600px) {
+    .vault-stage { min-height: 560px; }
+  }
+
+  /* Reduced motion: reveal instantly, static poster */
+  :global(html.reduce-motion) .brand-reveal,
+  :global(html.reduce-motion) .vault-hint { display: none; }
+  :global(html.reduce-motion) .hero-content { visibility: visible; }
+  :global(html.reduce-motion) .veil { opacity: 1; }
+</style>

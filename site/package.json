@@ -1,0 +1,18 @@
+{
+  "name": "lexfin-capital-site",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "LexFin Capital — website pháp lý BĐS & cấu trúc tài chính. Astro static build, deploy Hostinger.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18",
+    "gsap": "^3.12.5"
+  }
+}

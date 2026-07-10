@@ -1,0 +1,31 @@
+---
+import { tickerItems } from '../data/content.js';
+const loop = [...tickerItems, ...tickerItems];
+---
+<div class="ticker sec-deep" role="marquee" aria-label="Thuật ngữ chuyên ngành">
+  <div class="tick-track">
+    {loop.map((t) => (
+      <span class="tick-item"><span class="dot" aria-hidden="true"></span>{t}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker { overflow: hidden; padding: 18px 0; border-block: 1px solid var(--dd); }
+  .tick-track {
+    display: flex; width: max-content;
+    animation: scrollTick 42s linear infinite;
+  }
+  .tick-track:hover { animation-play-state: paused; }
+  .tick-item {
+    display: inline-flex; align-items: center; gap: 16px;
+    padding-inline: 26px;
+    font: 400 12.5px 'DM Mono', monospace; letter-spacing: .12em;
+    color: var(--ml); white-space: nowrap;
+  }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--g500); }
+  @keyframes scrollTick { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .tick-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import { metrics } from '../data/content.js';
+---
+<section class="sec sec-deep metrics">
+  <div class="wrap">
+    <div class="mtr-grid">
+      {metrics.map((m, i) => (
+        <div class="mtr r">
+          <div class="mtr-num">
+            <span class="counter mono" data-t={m.t}>0</span><span class="mtr-suffix">{m.suffix}</span>
+          </div>
+          <span class="mtr-label">{m.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .mtr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .mtr {
+    text-align: center; padding: 20px 16px;
+    position: relative;
+  }
+  .mtr:not(:last-child)::after {
+    content: ''; position: absolute; right: 0; top: 20%; height: 60%; width: 1px;
+    background: var(--dd);
+  }
+  .mtr-num {
+    display: inline-flex; align-items: baseline; justify-content: center;
+    font: 500 clamp(40px, 6vw, 68px) 'DM Mono', monospace;
+    letter-spacing: -.02em;
+    background: linear-gradient(180deg, var(--g300), var(--g500));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .mtr-suffix { font-size: .5em; color: var(--g500); -webkit-text-fill-color: var(--g500); margin-left: 2px; }
+  .mtr-label {
+    display: block; margin-top: 12px;
+    font: 400 12px 'DM Mono', monospace; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ml);
+  }
+  @media (max-width: 720px) {
+    .mtr-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+    .mtr:nth-child(2)::after { display: none; }
+  }
+</style>

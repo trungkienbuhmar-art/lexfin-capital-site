@@ -1,0 +1,84 @@
+---
+import { credentials, contact } from '../data/content.js';
+---
+<section id="founder" class="sec sec-deep founder">
+  <div class="wrap">
+    <div class="founder-grid">
+      <div class="founder-photo r">
+        <img src="/img/mr-finance.jpg" alt="Mr. Finance — Trịnh Trung Kiên, Founder & CEO LexFin Capital" loading="lazy" width="520" height="620" />
+        <span class="founder-stamp mono">Mr. Finance</span>
+      </div>
+
+      <div class="founder-copy">
+        <p class="eyebrow r"><span class="t-label">Nhân Hiệu</span></p>
+        <h2 class="t-h2 r">Mr. Finance &amp; <span class="gold">LexFin Capital.</span></h2>
+        <blockquote class="founder-quote r">
+          &ldquo;Thương vụ thành công không đến từ sự may mắn, mà đến từ hồ sơ pháp lý chuẩn chỉ,
+          số liệu tài chính minh bạch, thuyết phục và các chiến thuật tiếp cận chuyên nghiệp, độc đáo.&rdquo;
+        </blockquote>
+        <div class="founder-attr r">
+          <b>Mr. Finance</b>
+          <span>Founder &amp; CEO — Trịnh Trung Kiên</span>
+        </div>
+        <a href={contact.emailHref} class="cta-link founder-cta r">Làm việc trực tiếp với Mr. Finance <span class="arw">→</span></a>
+      </div>
+    </div>
+
+    <div class="cred-grid">
+      {credentials.map((c) => (
+        <div class="cred r">
+          <span class="cred-marker mono">{c.marker}</span>
+          <h3 class="cred-title">{c.title}</h3>
+          <p class="cred-desc">{c.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .founder-grid {
+    display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  .founder-photo { position: relative; }
+  .founder-photo img {
+    width: 100%; border-radius: var(--r-lg);
+    border: 1px solid var(--gl); box-shadow: var(--sh-3);
+    aspect-ratio: 4 / 5; object-fit: cover;
+  }
+  .founder-stamp {
+    position: absolute; left: 18px; bottom: 18px;
+    font-size: 11px; letter-spacing: .16em; color: var(--g300);
+    background: rgba(6,16,42,.72); backdrop-filter: blur(6px);
+    padding: 8px 14px; border-radius: 100px; border: 1px solid var(--gl);
+  }
+  .founder-quote {
+    font: 300 clamp(22px, 2.6vw, 32px)/1.4 'Cormorant Garamond', Georgia, serif;
+    font-style: italic; color: var(--w); margin: 22px 0 26px;
+    position: relative; padding-left: 24px;
+    border-left: 2px solid var(--g500);
+  }
+  .founder-attr { display: flex; flex-direction: column; gap: 4px; margin-bottom: 24px; }
+  .founder-attr b { color: var(--g400); font-size: 16px; font-weight: 700; }
+  .founder-attr span { color: var(--ml); font-size: 13.5px; }
+  .founder-cta { color: var(--g500); }
+
+  .cred-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: clamp(52px, 7vw, 88px);
+    padding-top: clamp(40px, 5vw, 60px); border-top: 1px solid var(--dd);
+  }
+  .cred-marker {
+    display: inline-block; font-size: 30px; font-weight: 500; color: var(--g500);
+    margin-bottom: 14px;
+  }
+  .cred-title { font: 700 17px 'DM Sans', sans-serif; color: var(--w); margin-bottom: 10px; }
+  .cred-desc { color: var(--mh); font-size: 14px; line-height: 1.7; }
+
+  @media (max-width: 900px) {
+    .founder-grid { grid-template-columns: 1fr; }
+    .founder-photo { max-width: 340px; }
+    .cred-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>
