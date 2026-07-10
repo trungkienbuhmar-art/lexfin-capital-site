@@ -140,12 +140,17 @@ function fireCard() {
       .fromTo(heroContent, { opacity: 0, y: 42 }, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.6, onStart: fireCard }, 6.0);
   };
 
+  // Build the pin/reveal timeline immediately (currentTime scrub is guarded by readyState).
+  build();
+  // Defer the heavy video fetch until after first paint so it never competes with LCP.
+  // The poster stays visible until the video has buffered enough to scrub.
   if (vid) {
     vid.addEventListener('loadedmetadata', () => { vidDur = vid.duration || 8; ScrollTrigger.refresh(); });
-    vid.load();
+    const startVideo = () => vid.load();
+    if (document.readyState === 'complete') setTimeout(startVideo, 200);
+    else addEventListener('load', () => setTimeout(startVideo, 200), { once: true });
   }
-  build();
-  addEventListener('load', () => ScrollTrigger.refresh());
+  addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
 
   /* Generic scroll reveal */
   gsap.utils.toArray('.r').forEach((el) => {

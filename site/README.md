@@ -49,6 +49,27 @@ site/
 │   └── pages/index.astro     # ráp trang chủ
 ```
 
+## Tối ưu video hero (quan trọng cho tốc độ)
+
+Hero dùng video "két sắt". Để trang tải nhanh (LCP tốt):
+
+**Cách load đã tối ưu sẵn trong code:**
+- Poster `vault-poster.png` được `preload` → là phần tử LCP, hiện ngay lập tức.
+- `<video preload="none">` + chỉ `vid.load()` **sau** khi trang render xong → 7.7MB video không tranh băng thông lúc đầu.
+
+**Nén video xuống ~2MB (chạy trên máy có ffmpeg — 1 lần):**
+```bash
+# H.264, CRF 25, faststart (metadata đầu file để phát nhanh) → thường ~2–2.8MB
+ffmpeg -i vault-hero.mp4 -c:v libx264 -crf 25 -preset slow \
+  -vf scale=1280:-2 -pix_fmt yuv420p -an -movflags +faststart vault-hero-opt.mp4
+mv vault-hero-opt.mp4 public/assets/vault-hero.mp4    # ghi đè, không cần sửa code
+
+# (tuỳ chọn) WebM/VP9 nhẹ hơn ~40% → mở comment <source> webm trong Hero.astro
+ffmpeg -i vault-hero.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an public/assets/vault-hero.webm
+```
+> Cảnh: `two-pass` hoặc CRF 23–26 cho cân bằng đẹp/nhẹ. Cảnh két tối nén rất tốt, hầu như không thấy khác biệt.
+> Nếu tạo `vault-hero.webm`, bỏ comment dòng `<source ... webm>` trong `src/components/Hero.astro`.
+
 ## Cập nhật nội dung
 - Sửa copy dịch vụ / metrics / status: `src/data/content.js`
 - Sửa bài LFC Insights: `src/data/insights.js`

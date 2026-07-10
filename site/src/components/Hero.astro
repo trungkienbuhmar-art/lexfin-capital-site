@@ -7,8 +7,10 @@
       id="vaultVideo"
       class="vault-video"
       poster="/assets/vault-poster.png"
-      muted playsinline preload="auto" tabindex="-1" aria-hidden="true"
+      muted playsinline preload="none" tabindex="-1" aria-hidden="true"
     >
+      {/* WebM ưu tiên (nhẹ hơn); thêm dòng dưới sau khi tạo file vault-hero.webm:
+          <source src="/assets/vault-hero.webm" type="video/webm" /> */}
       <source src="/assets/vault-hero.mp4" type="video/mp4" />
     </video>
 
