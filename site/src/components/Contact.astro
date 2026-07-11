@@ -46,6 +46,11 @@ import { contact, needOptions } from '../data/content.js';
 </section>
 
 <style>
+  .contact {
+    background:
+      linear-gradient(rgba(15, 33, 66, .82), rgba(10, 21, 38, .93)),
+      url('/assets/bg-vault.webp') center / cover no-repeat;
+  }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: center; }
   .contact-sub { color: var(--mh); margin: 18px 0 30px; }
   .contact-direct { display: grid; gap: 14px; }
@@ -70,7 +75,7 @@ import { contact, needOptions } from '../data/content.js';
     box-shadow: var(--sh-3); display: grid; gap: 18px;
   }
   .field { display: grid; gap: 8px; }
-  .field label { font: 500 13px 'DM Sans', sans-serif; color: var(--ml); }
+  .field label { font: 500 13px 'Manrope', system-ui, sans-serif; color: var(--ml); }
   .field label span { color: var(--g500); }
   .field input, .field select {
     width: 100%; padding: 14px 16px; min-height: 50px;
