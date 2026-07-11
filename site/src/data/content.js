@@ -5,8 +5,8 @@
 export const contact = {
   phone: '+84 977 290 770',
   phoneHref: 'tel:+84977290770',
-  email: 'trungkien.lexfin@gmail.com',
-  emailHref: 'mailto:trungkien.lexfin@gmail.com',
+  email: 'mr.finance@lexfincapital.com',
+  emailHref: 'mailto:mr.finance@lexfincapital.com',
   city: 'TP. Hồ Chí Minh',
   facebook: 'https://www.facebook.com/',
   webhook: 'https://lexfincapital.app.n8n.cloud/webhook/lexfin-contact',
