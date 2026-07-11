@@ -1,0 +1,14 @@
+{
+  "name": "LexFin Capital",
+  "short_name": "LexFin",
+  "description": "Pháp Lý Sạch — Vốn Chạy. Pháp lý BĐS & cấu trúc tài chính.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#14264A",
+  "theme_color": "#14264A",
+  "icons": [
+    { "src": "/favicon/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon/favicon.svg", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
