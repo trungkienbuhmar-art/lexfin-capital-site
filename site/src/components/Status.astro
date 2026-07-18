@@ -1,0 +1,64 @@
+---
+import { statusTiers } from '../data/content.js';
+---
+<section id="status" class="sec sec-light status">
+  <div class="wrap">
+    <div class="sec-hd">
+      <p class="eyebrow"><span class="t-label">Chuẩn Phân Loại LexFin</span></p>
+      <h2 class="t-h2">Mỗi Hồ Sơ — Một Trạng Thái, <span class="gold">Một Lộ Trình.</span></h2>
+    </div>
+
+    <div class="status-grid">
+      {statusTiers.map((s) => (
+        <article class={`status-card r ${s.color}`}>
+          <div class="status-top">
+            <span class="status-light" aria-hidden="true"></span>
+            <span class="status-tier mono">{s.tier}</span>
+            <span class="status-head">{s.head}</span>
+          </div>
+          <p class="status-body">{s.body}</p>
+          <div class="status-verdict">{s.verdict}</div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .status-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .status-card {
+    background: var(--w);
+    border: 1px solid var(--dl);
+    border-radius: var(--r-lg);
+    padding: 30px 28px;
+    border-top: 3px solid var(--tier);
+    transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2);
+  }
+  .status-card:hover { transform: translateY(-4px); box-shadow: var(--sh-2); }
+  .status-card.green  { --tier: var(--green); }
+  .status-card.yellow { --tier: var(--yellow); }
+  .status-card.red    { --tier: var(--red); }
+
+  .status-top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .status-light {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--tier); box-shadow: 0 0 0 4px color-mix(in srgb, var(--tier) 18%, transparent);
+  }
+  .status-tier {
+    font-size: 12px; font-weight: 500; letter-spacing: .18em; color: var(--tier);
+  }
+  .status-head { font: 700 15px 'Sora', sans-serif; color: var(--ink); margin-left: auto; }
+  .status-body { color: var(--m); font-size: 14.5px; line-height: 1.75; min-height: 96px; }
+  .status-verdict {
+    margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--dl);
+    font: 700 13px 'Sora', sans-serif; color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .status-verdict::before {
+    content: ''; width: 18px; height: 2px; background: var(--tier); flex-shrink: 0;
+  }
+  @media (max-width: 860px) {
+    .status-grid { grid-template-columns: 1fr; }
+    .status-body { min-height: 0; }
+  }
+</style>

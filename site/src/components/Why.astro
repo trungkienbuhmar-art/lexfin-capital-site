@@ -1,0 +1,49 @@
+---
+import { whyReasons } from '../data/content.js';
+
+const icons = {
+  ai: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/>',
+  parallel: '<path d="M4 6h7M4 12h7M4 18h7"/><path d="M20 6h-5M20 12h-5M20 18h-5"/><circle cx="12" cy="6" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="18" r="1.4" fill="currentColor" stroke="none"/>',
+  result: '<path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16l4-5 3 3 5-7"/>',
+};
+---
+<section class="sec sec-cream why">
+  <div class="wrap">
+    <div class="sec-hd center">
+      <p class="eyebrow center"><span class="t-label">Lý Do Chọn</span></p>
+      <h2 class="t-h2">Tại Sao Chọn <span class="gold">LexFin?</span></h2>
+    </div>
+
+    <div class="why-grid">
+      {whyReasons.map((w) => (
+        <article class="why-card r">
+          <span class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={icons[w.icon]} />
+          </span>
+          <h3 class="t-h3">{w.title}</h3>
+          <p class="why-desc">{w.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .why-card {
+    background: var(--w); border: 1px solid var(--dl); border-radius: var(--r-lg);
+    padding: 34px 30px;
+    transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2), border-color var(--dur-2);
+  }
+  .why-card:hover { transform: translateY(-5px); box-shadow: var(--sh-2); border-color: var(--gl); }
+  .why-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 54px; height: 54px; border-radius: var(--r-md);
+    background: var(--g200); border: 1px solid var(--gl); color: var(--n700);
+    margin-bottom: 22px;
+  }
+  .why-icon svg { width: 26px; height: 26px; }
+  .why-card h3 { color: var(--ink); margin-bottom: 12px; }
+  .why-desc { color: var(--m); font-size: 14.5px; line-height: 1.75; }
+  @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr; } }
+</style>

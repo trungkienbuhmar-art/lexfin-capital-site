@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'LexFin Capital — Pháp Lý & Tài Chính',
+  description = 'LexFin Capital — Đơn vị hỗ trợ xử lý deal pháp lý BĐS 1/500 và cấu trúc tài chính ngân hàng bằng hệ thống Multi AI System. Thẩm định hồ sơ trong 24h.',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const og = new URL('/assets/og-image-1200x630.png', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0D1E47" />
+
+    <!-- LCP: hero poster paints immediately while the video streams in later -->
+    <link rel="preload" as="image" href="/assets/vault-poster.webp" fetchpriority="high" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LexFin Capital" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Sora:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      name: 'LexFin Capital',
+      description,
+      areaServed: 'VN',
+      address: { '@type': 'PostalAddress', addressLocality: 'TP. Hồ Chí Minh', addressCountry: 'VN' },
+      telephone: '+84977290770',
+      email: 'mr.finance@lexfincapital.com',
+      url: 'https://lexfincapital.vn',
+    })} />
+  </head>
+  <body>
+    <a href="#services" class="skip-link">Bỏ qua tới nội dung chính</a>
+    <slot />
+
+    <!-- Google Analytics -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-55LXL123D7"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-55LXL123D7');
+    </script>
+
+    <style>
+      .skip-link {
+        position: fixed; top: -60px; left: 16px; z-index: 2000;
+        background: var(--g500); color: var(--n900);
+        padding: 12px 20px; border-radius: 0 0 8px 8px;
+        font: 700 13px 'Sora', sans-serif;
+        transition: top .2s var(--ease);
+      }
+      .skip-link:focus { top: 0; }
+    </style>
+  </body>
+</html>

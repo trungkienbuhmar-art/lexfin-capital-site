@@ -1,0 +1,577 @@
+{
+  ".claude/skills/ui-ux-pro-max/scripts/core.py": {
+    "mtime": 1783695542.6943583,
+    "ast_hash": "c81307355b3c2ba9fc8cbadcf5cddebd",
+    "semantic_hash": "c81307355b3c2ba9fc8cbadcf5cddebd"
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/design_system.py": {
+    "mtime": 1783695542.6946604,
+    "ast_hash": "ab69d000f69bad6c1cc3ae0826574f8d",
+    "semantic_hash": "ab69d000f69bad6c1cc3ae0826574f8d"
+  },
+  ".claude/skills/ui-ux-pro-max/scripts/search.py": {
+    "mtime": 1783695542.6947384,
+    "ast_hash": "f321a69063719e514fe2692cec0514d1",
+    "semantic_hash": "f321a69063719e514fe2692cec0514d1"
+  },
+  "site/astro.config.mjs": {
+    "mtime": 1783698357.8005688,
+    "ast_hash": "380793abeb2961d1bd5ed80bff542331",
+    "semantic_hash": "380793abeb2961d1bd5ed80bff542331"
+  },
+  "site/package.json": {
+    "mtime": 1783770897.8945575,
+    "ast_hash": "8b8e4efd0036b24a3d10a825ed3079ed",
+    "semantic_hash": "8b8e4efd0036b24a3d10a825ed3079ed"
+  },
+  "site/src/components/Banks.astro": {
+    "mtime": 1783760591.0894604,
+    "ast_hash": "a4586de5b48e871cdfed4046a85d3a4b",
+    "semantic_hash": "a4586de5b48e871cdfed4046a85d3a4b"
+  },
+  "site/src/components/Contact.astro": {
+    "mtime": 1783760735.2748287,
+    "ast_hash": "bc69033d05c409b9b9622c6c6e990464",
+    "semantic_hash": "bc69033d05c409b9b9622c6c6e990464"
+  },
+  "site/src/components/Footer.astro": {
+    "mtime": 1783698162.8645723,
+    "ast_hash": "c8b392cadce85e41fb845b9ccb032067",
+    "semantic_hash": "c8b392cadce85e41fb845b9ccb032067"
+  },
+  "site/src/components/Founder.astro": {
+    "mtime": 1783760661.2828243,
+    "ast_hash": "1d70c5949bc3ab50547b9959cbbeab6d",
+    "semantic_hash": "1d70c5949bc3ab50547b9959cbbeab6d"
+  },
+  "site/src/components/Hero.astro": {
+    "mtime": 1783760591.08907,
+    "ast_hash": "cd157f4730562bcb2a3666c9fc353ece",
+    "semantic_hash": "cd157f4730562bcb2a3666c9fc353ece"
+  },
+  "site/src/components/Insights.astro": {
+    "mtime": 1783760717.5668275,
+    "ast_hash": "eb3b58d36f00458e59c0d470412b81d5",
+    "semantic_hash": "eb3b58d36f00458e59c0d470412b81d5"
+  },
+  "site/src/components/Metrics.astro": {
+    "mtime": 1783760712.4908273,
+    "ast_hash": "3645d02e8e3d5ff78d1d0eb84f3cec20",
+    "semantic_hash": "3645d02e8e3d5ff78d1d0eb84f3cec20"
+  },
+  "site/src/components/Nav.astro": {
+    "mtime": 1783760591.0893772,
+    "ast_hash": "e01dbeefdee714acc8fe6abd90a4f370",
+    "semantic_hash": "e01dbeefdee714acc8fe6abd90a4f370"
+  },
+  "site/src/components/Process.astro": {
+    "mtime": 1783698086.5005736,
+    "ast_hash": "d7eb9af7e5c231d14f3a4cdc5adc541c",
+    "semantic_hash": "d7eb9af7e5c231d14f3a4cdc5adc541c"
+  },
+  "site/src/components/Services.astro": {
+    "mtime": 1783760591.0895576,
+    "ast_hash": "6d61ffe89dc8e26d84494e58b36abe52",
+    "semantic_hash": "6d61ffe89dc8e26d84494e58b36abe52"
+  },
+  "site/src/components/Status.astro": {
+    "mtime": 1783760591.0892813,
+    "ast_hash": "0caf5f3a410db0c7320a78666e66e3d8",
+    "semantic_hash": "0caf5f3a410db0c7320a78666e66e3d8"
+  },
+  "site/src/components/Ticker.astro": {
+    "mtime": 1783697942.2285762,
+    "ast_hash": "26e58fe55bd74a13194d64d1c369b741",
+    "semantic_hash": "26e58fe55bd74a13194d64d1c369b741"
+  },
+  "site/src/components/Why.astro": {
+    "mtime": 1783698073.5245738,
+    "ast_hash": "297746a2444f98bf76561ec1cf5862ca",
+    "semantic_hash": "297746a2444f98bf76561ec1cf5862ca"
+  },
+  "site/src/data/content.js": {
+    "mtime": 1783768791.7815728,
+    "ast_hash": "cfe665ce1d8fd0d09dafee6608007fd3",
+    "semantic_hash": "cfe665ce1d8fd0d09dafee6608007fd3"
+  },
+  "site/src/data/insights.js": {
+    "mtime": 1783697824.8805783,
+    "ast_hash": "6a7d1a7c99703f140952428ce859c675",
+    "semantic_hash": "6a7d1a7c99703f140952428ce859c675"
+  },
+  "site/src/env.d.ts": {
+    "mtime": 1783698349.784569,
+    "ast_hash": "a34c63603f2fc704c29af63d4a960109",
+    "semantic_hash": "a34c63603f2fc704c29af63d4a960109"
+  },
+  "site/src/layouts/Base.astro": {
+    "mtime": 1783768806.0879352,
+    "ast_hash": "77deab493cf9aa5cf73397a24fa378ee",
+    "semantic_hash": "77deab493cf9aa5cf73397a24fa378ee"
+  },
+  "site/src/pages/404.astro": {
+    "mtime": 1783698282.1565702,
+    "ast_hash": "a18ca36ea0ea5ef8c0f716d12df894e1",
+    "semantic_hash": "a18ca36ea0ea5ef8c0f716d12df894e1"
+  },
+  "site/src/pages/index.astro": {
+    "mtime": 1783698241.6445708,
+    "ast_hash": "0132ed3ce191dd6eda47509cdf4ba240",
+    "semantic_hash": "0132ed3ce191dd6eda47509cdf4ba240"
+  },
+  "site/src/scripts/main.js": {
+    "mtime": 1783701533.0203733,
+    "ast_hash": "618ba0e6a91f8463448ffe0877d69094",
+    "semantic_hash": "618ba0e6a91f8463448ffe0877d69094"
+  },
+  "site/tsconfig.json": {
+    "mtime": 1783697620.9845817,
+    "ast_hash": "1d3613ac08bdda17e2b82251613dbc21",
+    "semantic_hash": "1d3613ac08bdda17e2b82251613dbc21"
+  },
+  "vercel.json": {
+    "mtime": 1783695100.6047091,
+    "ast_hash": "04781df60955c8f1dde23818e0dd0964",
+    "semantic_hash": "04781df60955c8f1dde23818e0dd0964"
+  },
+  ".claude/rules/01-brand-content.md": {
+    "mtime": 1783695100.0700805,
+    "ast_hash": "c2928f8926b7cf1f9f25fa4f89146bef",
+    "semantic_hash": "c2928f8926b7cf1f9f25fa4f89146bef"
+  },
+  ".claude/rules/02-design-system.md": {
+    "mtime": 1783695100.0712535,
+    "ast_hash": "071bc6f83f69ef6e9b0892962b416c7f",
+    "semantic_hash": "071bc6f83f69ef6e9b0892962b416c7f"
+  },
+  ".claude/rules/03-site-structure.md": {
+    "mtime": 1783695100.0712535,
+    "ast_hash": "e775d26525e087ba7a9ecb4454c0166e",
+    "semantic_hash": "e775d26525e087ba7a9ecb4454c0166e"
+  },
+  ".claude/rules/04-workflow.md": {
+    "mtime": 1783695100.0712535,
+    "ast_hash": "54c619c85e98eea4ed9469c47d03c777",
+    "semantic_hash": "54c619c85e98eea4ed9469c47d03c777"
+  },
+  ".claude/rules/05-coding-guidelines.md": {
+    "mtime": 1783695100.0712535,
+    "ast_hash": "8c00f274df4ddce009271e9c75fcc2d7",
+    "semantic_hash": "8c00f274df4ddce009271e9c75fcc2d7"
+  },
+  ".claude/rules/06-tech-stack.md": {
+    "mtime": 1783695100.0712535,
+    "ast_hash": "fda0cdad38235fcda344abeedabfff06",
+    "semantic_hash": "fda0cdad38235fcda344abeedabfff06"
+  },
+  ".claude/skills/frontend-design/LICENSE.txt": {
+    "mtime": 1783695179.9158595,
+    "ast_hash": "2ee41112a44fe7014dce33e26468ba93",
+    "semantic_hash": "2ee41112a44fe7014dce33e26468ba93"
+  },
+  ".claude/skills/frontend-design/SKILL.md": {
+    "mtime": 1783695179.3862896,
+    "ast_hash": "31c633612585bf2dd4e6d1103afc9f33",
+    "semantic_hash": "31c633612585bf2dd4e6d1103afc9f33"
+  },
+  ".claude/skills/graphify/SKILL.md": {
+    "mtime": 1784344162.004289,
+    "ast_hash": "f8d5ef667aae74129e01fcca97bbfddd",
+    "semantic_hash": "f8d5ef667aae74129e01fcca97bbfddd"
+  },
+  ".claude/skills/graphify/references/add-watch.md": {
+    "mtime": 1784344162.0059853,
+    "ast_hash": "d59d027fe449f06aa03905a01184e779",
+    "semantic_hash": "d59d027fe449f06aa03905a01184e779"
+  },
+  ".claude/skills/graphify/references/exports.md": {
+    "mtime": 1784344162.0060182,
+    "ast_hash": "9da2a2152e60a22f07f05fed5158f287",
+    "semantic_hash": "9da2a2152e60a22f07f05fed5158f287"
+  },
+  ".claude/skills/graphify/references/extraction-spec.md": {
+    "mtime": 1784344162.006033,
+    "ast_hash": "42fef56a01698118f7fd722acdadea34",
+    "semantic_hash": "42fef56a01698118f7fd722acdadea34"
+  },
+  ".claude/skills/graphify/references/github-and-merge.md": {
+    "mtime": 1784344162.0060477,
+    "ast_hash": "cde13df085e4c492aeb7ba298a996d0d",
+    "semantic_hash": "cde13df085e4c492aeb7ba298a996d0d"
+  },
+  ".claude/skills/graphify/references/hooks.md": {
+    "mtime": 1784344162.0060635,
+    "ast_hash": "3f545db6ce646650bb9de588f5512a27",
+    "semantic_hash": "3f545db6ce646650bb9de588f5512a27"
+  },
+  ".claude/skills/graphify/references/query.md": {
+    "mtime": 1784344162.0060825,
+    "ast_hash": "3c46f8ad006874260614ed8657d02307",
+    "semantic_hash": "3c46f8ad006874260614ed8657d02307"
+  },
+  ".claude/skills/graphify/references/transcribe.md": {
+    "mtime": 1784344162.0061023,
+    "ast_hash": "67b6a5fa6c0974e18f60db9f8932fbd8",
+    "semantic_hash": "67b6a5fa6c0974e18f60db9f8932fbd8"
+  },
+  ".claude/skills/graphify/references/update.md": {
+    "mtime": 1784344162.0061195,
+    "ast_hash": "c698309979460d0f02ba616417844399",
+    "semantic_hash": "c698309979460d0f02ba616417844399"
+  },
+  ".claude/skills/ui-ux-pro-max/SKILL.md": {
+    "mtime": 1783695542.6868658,
+    "ast_hash": "7fbb1d750e1a566d18ae12857f586648",
+    "semantic_hash": "7fbb1d750e1a566d18ae12857f586648"
+  },
+  "CLAUDE.md": {
+    "mtime": 1783695100.072709,
+    "ast_hash": "49cc35e29caa5be331aaa429f1644af3",
+    "semantic_hash": "49cc35e29caa5be331aaa429f1644af3"
+  },
+  "cam-on.html": {
+    "mtime": 1783768791.778138,
+    "ast_hash": "677196cc927ca070d38ae1765902d2fb",
+    "semantic_hash": "677196cc927ca070d38ae1765902d2fb"
+  },
+  "en/index.html": {
+    "mtime": 1783870732.0906546,
+    "ast_hash": "4ca1d50a871c5f9542bcccf5353ef3a9",
+    "semantic_hash": "4ca1d50a871c5f9542bcccf5353ef3a9"
+  },
+  "index-old.html": {
+    "mtime": 1783695100.348709,
+    "ast_hash": "fc72281b146163c80f9146bd79e4095e",
+    "semantic_hash": "fc72281b146163c80f9146bd79e4095e"
+  },
+  "index.html": {
+    "mtime": 1783870525.0746424,
+    "ast_hash": "aefc78e15615fb2f08ee246e5513fb0a",
+    "semantic_hash": "aefc78e15615fb2f08ee246e5513fb0a"
+  },
+  "lexfin-deal-intake-v4.html": {
+    "mtime": 1783695100.356709,
+    "ast_hash": "8d43c32de64272234b1a3cf8b0367fb3",
+    "semantic_hash": "8d43c32de64272234b1a3cf8b0367fb3"
+  },
+  "lexfin-deal-intake-v5.html": {
+    "mtime": 1783695100.356709,
+    "ast_hash": "cfd7422acbe372f1962002dc0c48b183",
+    "semantic_hash": "cfd7422acbe372f1962002dc0c48b183"
+  },
+  "phap-ly-ca-nhan.html": {
+    "mtime": 1783768791.7730782,
+    "ast_hash": "4fe6d814b41a4f3f35b7913067ad8214",
+    "semantic_hash": "4fe6d814b41a4f3f35b7913067ad8214"
+  },
+  "site/README.md": {
+    "mtime": 1783702518.7385073,
+    "ast_hash": "d558d9514f9a14f79595e8debf15f1b0",
+    "semantic_hash": "d558d9514f9a14f79595e8debf15f1b0"
+  },
+  "Logo BIDV.png": {
+    "mtime": 1783695100.072709,
+    "ast_hash": "2636f321470273d0b965112a300747dd",
+    "semantic_hash": "2636f321470273d0b965112a300747dd"
+  },
+  "Logo MB Bank.png": {
+    "mtime": 1783695100.072709,
+    "ast_hash": "db5d9ada04bae4da0999277906a6d105",
+    "semantic_hash": "db5d9ada04bae4da0999277906a6d105"
+  },
+  "Logo Techcombank.png": {
+    "mtime": 1783695100.076709,
+    "ast_hash": "fa4decb448fc095ec3299c85d6aff02a",
+    "semantic_hash": "fa4decb448fc095ec3299c85d6aff02a"
+  },
+  "Logo VP Bank.png": {
+    "mtime": 1783695100.076709,
+    "ast_hash": "3b5fe51b0ffa8f54fa846d3de9012abe",
+    "semantic_hash": "3b5fe51b0ffa8f54fa846d3de9012abe"
+  },
+  "Logo Vietcombank.png": {
+    "mtime": 1783695100.076709,
+    "ast_hash": "33d32b68d8194b01d68974b645a0d1d4",
+    "semantic_hash": "33d32b68d8194b01d68974b645a0d1d4"
+  },
+  "Logo Vietinbank.png": {
+    "mtime": 1783695100.076709,
+    "ast_hash": "27d15c60fc8aae9496b2b854453bcccb",
+    "semantic_hash": "27d15c60fc8aae9496b2b854453bcccb"
+  },
+  "LogoLexFin.png.png": {
+    "mtime": 1783695100.076709,
+    "ast_hash": "190cd457ae8ff0404ccdc42c70527c7c",
+    "semantic_hash": "190cd457ae8ff0404ccdc42c70527c7c"
+  },
+  "assets/bg-marble.png": {
+    "mtime": 1783695100.092709,
+    "ast_hash": "aad6dee1d036874165495c8cb8e2a992",
+    "semantic_hash": "aad6dee1d036874165495c8cb8e2a992"
+  },
+  "assets/bg-skyline.png": {
+    "mtime": 1783695100.112709,
+    "ast_hash": "e9e5ec8327963de80732ea3d47442dab",
+    "semantic_hash": "e9e5ec8327963de80732ea3d47442dab"
+  },
+  "assets/bg-vault.png": {
+    "mtime": 1783695100.132709,
+    "ast_hash": "d8005ecdc4486d9ab5f072f639caae43",
+    "semantic_hash": "d8005ecdc4486d9ab5f072f639caae43"
+  },
+  "assets/svc-phap-ly-cn.png": {
+    "mtime": 1783695100.152709,
+    "ast_hash": "52d15205343d0c0c8ea2cbbc82f36da9",
+    "semantic_hash": "52d15205343d0c0c8ea2cbbc82f36da9"
+  },
+  "assets/svc-phap-ly-dn.png": {
+    "mtime": 1783695100.168709,
+    "ast_hash": "565d1f5d8ca20ec01759f2ff8ab780c5",
+    "semantic_hash": "565d1f5d8ca20ec01759f2ff8ab780c5"
+  },
+  "assets/svc-tai-chinh-cn.png": {
+    "mtime": 1783695100.188709,
+    "ast_hash": "d909c600c4d62f61aaa9f0c1ca24091c",
+    "semantic_hash": "d909c600c4d62f61aaa9f0c1ca24091c"
+  },
+  "assets/svc-tai-chinh-dn.png": {
+    "mtime": 1783695100.208709,
+    "ast_hash": "64c5b77197413c2811df920d627f4ba6",
+    "semantic_hash": "64c5b77197413c2811df920d627f4ba6"
+  },
+  "assets/vault-poster.png": {
+    "mtime": 1783695100.3247092,
+    "ast_hash": "043b8eff5308597700a182f812cae4ee",
+    "semantic_hash": "043b8eff5308597700a182f812cae4ee"
+  },
+  "brand/logo-mark-navy.png": {
+    "mtime": 1783695100.336709,
+    "ast_hash": "1f97a6e93a377113058a8b6008a103de",
+    "semantic_hash": "1f97a6e93a377113058a8b6008a103de"
+  },
+  "brand/logo-primary-horizontal.png": {
+    "mtime": 1783695100.340709,
+    "ast_hash": "c9f66c5011b5f6d65c94057dab5bc9ca",
+    "semantic_hash": "c9f66c5011b5f6d65c94057dab5bc9ca"
+  },
+  "brand/logo-white-horizontal.png": {
+    "mtime": 1783695100.340709,
+    "ast_hash": "d7249ec5a586940d0f7e836b4bc4849d",
+    "semantic_hash": "d7249ec5a586940d0f7e836b4bc4849d"
+  },
+  "brand/stamp-white.png": {
+    "mtime": 1783695100.340709,
+    "ast_hash": "3f8da0fa56e662a3509041680db35e2e",
+    "semantic_hash": "3f8da0fa56e662a3509041680db35e2e"
+  },
+  "brand/stamp.png": {
+    "mtime": 1783695100.3447092,
+    "ast_hash": "97042a14bf5a5461c6390ed9ea8c5f59",
+    "semantic_hash": "97042a14bf5a5461c6390ed9ea8c5f59"
+  },
+  "favicon/apple-touch-icon.png": {
+    "mtime": 1783695100.3447092,
+    "ast_hash": "8918c34d09815b5f2cb3dc5c74087e2d",
+    "semantic_hash": "8918c34d09815b5f2cb3dc5c74087e2d"
+  },
+  "favicon/favicon-16.png": {
+    "mtime": 1783695100.3475764,
+    "ast_hash": "de12f4695eb81d9154a501c94402f070",
+    "semantic_hash": "de12f4695eb81d9154a501c94402f070"
+  },
+  "favicon/favicon-32.png": {
+    "mtime": 1783695100.3475764,
+    "ast_hash": "271d6d50f45e7302f7fd21b714cfe750",
+    "semantic_hash": "271d6d50f45e7302f7fd21b714cfe750"
+  },
+  "favicon/favicon.svg": {
+    "mtime": 1783695100.3475764,
+    "ast_hash": "9da3f4c75203c445fd09885697be96b4",
+    "semantic_hash": "9da3f4c75203c445fd09885697be96b4"
+  },
+  "favicon/icon-192.png": {
+    "mtime": 1783695100.3475764,
+    "ast_hash": "b31876499de277bed0aff45ba7633ab4",
+    "semantic_hash": "b31876499de277bed0aff45ba7633ab4"
+  },
+  "favicon/icon-512.png": {
+    "mtime": 1783695100.3475764,
+    "ast_hash": "c24c602843e5f16947a048b00613e2e5",
+    "semantic_hash": "c24c602843e5f16947a048b00613e2e5"
+  },
+  "favicon/mark-only-512.png": {
+    "mtime": 1783695100.348709,
+    "ast_hash": "1b6ede20476282e8336f7eec9332f424",
+    "semantic_hash": "1b6ede20476282e8336f7eec9332f424"
+  },
+  "lexfin-logo.png": {
+    "mtime": 1783695100.356709,
+    "ast_hash": "a18a3d2868e67cda02602316b8dbdfcd",
+    "semantic_hash": "a18a3d2868e67cda02602316b8dbdfcd"
+  },
+  "mr-finance.JPEG": {
+    "mtime": 1783695100.560709,
+    "ast_hash": "1b96b942077ecc2cdcc1a51010c86282",
+    "semantic_hash": "1b96b942077ecc2cdcc1a51010c86282"
+  },
+  "og-image-1200x630.png": {
+    "mtime": 1783695100.576709,
+    "ast_hash": "0ea687bd1ab30851eac99ebf771ac81a",
+    "semantic_hash": "0ea687bd1ab30851eac99ebf771ac81a"
+  },
+  "phap-ly-ca-nhan.png": {
+    "mtime": 1783695100.580709,
+    "ast_hash": "85b31842dc6d7e74fecaa861acc8a2f2",
+    "semantic_hash": "85b31842dc6d7e74fecaa861acc8a2f2"
+  },
+  "phap-ly-doanh-nghiep.png": {
+    "mtime": 1783695100.588709,
+    "ast_hash": "8e40f83df939110e7841b0fc0b3b193b",
+    "semantic_hash": "8e40f83df939110e7841b0fc0b3b193b"
+  },
+  "site/public/assets/bg-marble.webp": {
+    "mtime": 1783760690.982826,
+    "ast_hash": "ec02f123989194cb8b9a0a36634e2e0e",
+    "semantic_hash": "ec02f123989194cb8b9a0a36634e2e0e"
+  },
+  "site/public/assets/bg-skyline.webp": {
+    "mtime": 1783760690.774826,
+    "ast_hash": "f55415c19c50b566eb8dbce4e85719cc",
+    "semantic_hash": "f55415c19c50b566eb8dbce4e85719cc"
+  },
+  "site/public/assets/bg-vault.webp": {
+    "mtime": 1783760691.170826,
+    "ast_hash": "a9c0bdd42f89c4c94f6062c2f06c8e54",
+    "semantic_hash": "a9c0bdd42f89c4c94f6062c2f06c8e54"
+  },
+  "site/public/assets/og-image-1200x630.png": {
+    "mtime": 1783697691.141792,
+    "ast_hash": "0ea687bd1ab30851eac99ebf771ac81a",
+    "semantic_hash": "0ea687bd1ab30851eac99ebf771ac81a"
+  },
+  "site/public/assets/svc-phap-ly-cn.webp": {
+    "mtime": 1783702580.3065062,
+    "ast_hash": "ac82d1494994f75e267f5b2b617fea9c",
+    "semantic_hash": "ac82d1494994f75e267f5b2b617fea9c"
+  },
+  "site/public/assets/svc-phap-ly-dn.webp": {
+    "mtime": 1783702580.106506,
+    "ast_hash": "5657990fd5ee2ee8552de491d018bc65",
+    "semantic_hash": "5657990fd5ee2ee8552de491d018bc65"
+  },
+  "site/public/assets/svc-tai-chinh-cn.webp": {
+    "mtime": 1783702580.7145061,
+    "ast_hash": "c3fd1273b9b8d2fbb6c5a263f5209aeb",
+    "semantic_hash": "c3fd1273b9b8d2fbb6c5a263f5209aeb"
+  },
+  "site/public/assets/svc-tai-chinh-dn.webp": {
+    "mtime": 1783702580.498506,
+    "ast_hash": "2f53d21d373e23824bd2f45e255bbcb3",
+    "semantic_hash": "2f53d21d373e23824bd2f45e255bbcb3"
+  },
+  "site/public/assets/vault-poster.webp": {
+    "mtime": 1783702478.738508,
+    "ast_hash": "ff15f7fac9baf46ded5b993c2eed0dc3",
+    "semantic_hash": "ff15f7fac9baf46ded5b993c2eed0dc3"
+  },
+  "site/public/brand/logo-mark-navy.png": {
+    "mtime": 1783697508.845718,
+    "ast_hash": "1f97a6e93a377113058a8b6008a103de",
+    "semantic_hash": "1f97a6e93a377113058a8b6008a103de"
+  },
+  "site/public/brand/logo-primary-horizontal.png": {
+    "mtime": 1783697508.848273,
+    "ast_hash": "c9f66c5011b5f6d65c94057dab5bc9ca",
+    "semantic_hash": "c9f66c5011b5f6d65c94057dab5bc9ca"
+  },
+  "site/public/brand/logo-white-horizontal.png": {
+    "mtime": 1783697508.8502243,
+    "ast_hash": "d7249ec5a586940d0f7e836b4bc4849d",
+    "semantic_hash": "d7249ec5a586940d0f7e836b4bc4849d"
+  },
+  "site/public/brand/stamp-white.png": {
+    "mtime": 1783697508.852115,
+    "ast_hash": "3f8da0fa56e662a3509041680db35e2e",
+    "semantic_hash": "3f8da0fa56e662a3509041680db35e2e"
+  },
+  "site/public/brand/stamp.png": {
+    "mtime": 1783697508.8534858,
+    "ast_hash": "97042a14bf5a5461c6390ed9ea8c5f59",
+    "semantic_hash": "97042a14bf5a5461c6390ed9ea8c5f59"
+  },
+  "site/public/favicon/apple-touch-icon.png": {
+    "mtime": 1783697508.857627,
+    "ast_hash": "8918c34d09815b5f2cb3dc5c74087e2d",
+    "semantic_hash": "8918c34d09815b5f2cb3dc5c74087e2d"
+  },
+  "site/public/favicon/favicon-16.png": {
+    "mtime": 1783697508.8583279,
+    "ast_hash": "de12f4695eb81d9154a501c94402f070",
+    "semantic_hash": "de12f4695eb81d9154a501c94402f070"
+  },
+  "site/public/favicon/favicon-32.png": {
+    "mtime": 1783697508.8587978,
+    "ast_hash": "271d6d50f45e7302f7fd21b714cfe750",
+    "semantic_hash": "271d6d50f45e7302f7fd21b714cfe750"
+  },
+  "site/public/favicon/favicon.svg": {
+    "mtime": 1783697508.859834,
+    "ast_hash": "9da3f4c75203c445fd09885697be96b4",
+    "semantic_hash": "9da3f4c75203c445fd09885697be96b4"
+  },
+  "site/public/favicon/icon-192.png": {
+    "mtime": 1783697508.8603163,
+    "ast_hash": "b31876499de277bed0aff45ba7633ab4",
+    "semantic_hash": "b31876499de277bed0aff45ba7633ab4"
+  },
+  "site/public/favicon/icon-512.png": {
+    "mtime": 1783697508.8605287,
+    "ast_hash": "c24c602843e5f16947a048b00613e2e5",
+    "semantic_hash": "c24c602843e5f16947a048b00613e2e5"
+  },
+  "site/public/favicon/mark-only-512.png": {
+    "mtime": 1783697508.8611395,
+    "ast_hash": "1b6ede20476282e8336f7eec9332f424",
+    "semantic_hash": "1b6ede20476282e8336f7eec9332f424"
+  },
+  "site/public/img/brand-mark.svg": {
+    "mtime": 1783697492.5733297,
+    "ast_hash": "31f2bc59189bdfb5f1aee057fd6b8af9",
+    "semantic_hash": "31f2bc59189bdfb5f1aee057fd6b8af9"
+  },
+  "site/public/img/logo.png": {
+    "mtime": 1783697492.568584,
+    "ast_hash": "190cd457ae8ff0404ccdc42c70527c7c",
+    "semantic_hash": "190cd457ae8ff0404ccdc42c70527c7c"
+  },
+  "site/public/img/mr-finance.jpg": {
+    "mtime": 1783697492.5741842,
+    "ast_hash": "2656f77fa82b74eb6316b2bdbdeaacfc",
+    "semantic_hash": "2656f77fa82b74eb6316b2bdbdeaacfc"
+  },
+  "tai-chinh-ca-nhan.png": {
+    "mtime": 1783695100.600709,
+    "ast_hash": "6b3797abe57580c08e36923e3ba59056",
+    "semantic_hash": "6b3797abe57580c08e36923e3ba59056"
+  },
+  "tai-chinh-doanh-nghiep.png": {
+    "mtime": 1783695100.6047091,
+    "ast_hash": "a687ff567408c6791f60da0f4eb6c08c",
+    "semantic_hash": "a687ff567408c6791f60da0f4eb6c08c"
+  },
+  "assets/vault-hero.mp4": {
+    "mtime": 1783695100.268709,
+    "ast_hash": "b78707dbdcb910ba972189db67a27621",
+    "semantic_hash": "b78707dbdcb910ba972189db67a27621"
+  },
+  "site/public/assets/vault-hero.mp4": {
+    "mtime": 1783702382.6316874,
+    "ast_hash": "27a2bc49ea1993f55969c0e0a780d6e2",
+    "semantic_hash": "27a2bc49ea1993f55969c0e0a780d6e2"
+  },
+  "site/public/assets/vault-hero.webm": {
+    "mtime": 1783702412.9265091,
+    "ast_hash": "6e079c3ea15aa2a6355babf694284729",
+    "semantic_hash": "6e079c3ea15aa2a6355babf694284729"
+  }
+}

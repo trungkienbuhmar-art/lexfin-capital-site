@@ -1,0 +1,30 @@
+---
+import { banks } from '../data/content.js';
+---
+<section class="sec-sm sec-cream banks">
+  <div class="wrap">
+    <p class="banks-label t-label r">Đối tác Ngân hàng &amp; Tổ chức Tín dụng</p>
+    <div class="banks-row">
+      {banks.map((b) => (
+        <span class="bank r">{b}</span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .banks { text-align: center; }
+  .banks-label { color: var(--m); margin-bottom: 30px; }
+  .banks-row {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: clamp(20px, 4vw, 52px);
+  }
+  .bank {
+    font: 700 clamp(16px, 1.9vw, 22px) 'Sora', sans-serif;
+    letter-spacing: -.01em; color: var(--ink);
+    opacity: .55; filter: grayscale(1);
+    transition: opacity var(--dur-2), transform var(--dur-2) var(--ease);
+  }
+  .bank:hover { opacity: 1; transform: translateY(-2px); }
+  @media (max-width: 600px) { .bank { font-size: 15px; } }
+</style>

@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Không tìm thấy trang — LexFin Capital">
+  <main class="nf">
+    <div class="wrap nf-in">
+      <span class="t-label nf-code">404</span>
+      <h1 class="t-hero nf-title">Trang Không <span class="gold serif">Tồn Tại.</span></h1>
+      <p class="nf-sub t-lead">Đường dẫn bạn truy cập không có hoặc đã được di chuyển.</p>
+      <a href="/" class="btn btn-gold">Về Trang Chủ <span class="arw">→</span></a>
+    </div>
+  </main>
+
+  <style>
+    .nf { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, #10214C, var(--n900)); }
+    .nf-in { text-align: center; }
+    .nf-code { display: inline-block; color: var(--g500); margin-bottom: 20px; }
+    .nf-title { color: var(--w); margin-bottom: 18px; }
+    .nf-title .serif { font-style: italic; }
+    .nf-sub { color: var(--mh); margin-bottom: 32px; }
+  </style>
+</Base>

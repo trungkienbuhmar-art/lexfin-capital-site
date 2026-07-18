@@ -1,0 +1,91 @@
+---
+import { contact } from '../data/content.js';
+const year = 2026;
+
+const cols = [
+  {
+    title: 'Dịch Vụ',
+    links: [
+      { t: 'Pháp Lý BĐS · Doanh Nghiệp', href: '#services' },
+      { t: 'Pháp Lý BĐS · Cá Nhân', href: '#services' },
+      { t: 'Tài Chính · Doanh Nghiệp', href: '#services' },
+      { t: 'Tài Chính · Cá Nhân', href: '#services' },
+    ],
+  },
+  {
+    title: 'LFC Insights',
+    links: [
+      { t: 'Báo cáo 1/500', href: '#insights' },
+      { t: 'DSCR Optimization', href: '#insights' },
+      { t: 'Mô hình 2→1', href: '#insights' },
+      { t: 'Xem tất cả', href: '#insights' },
+    ],
+  },
+];
+---
+<footer class="footer sec-deep">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/img/logo.png" alt="LexFin Capital" width="150" height="38" class="footer-logo" />
+        <p class="footer-tag">
+          Đơn vị hỗ trợ và tư vấn xử lý deal pháp lý BĐS và cấu trúc tài chính cho
+          doanh nghiệp và cá nhân bằng hệ thống Multi AI System độc bản.
+        </p>
+      </div>
+
+      {cols.map((c) => (
+        <nav class="footer-col" aria-label={c.title}>
+          <h4 class="footer-col-t t-label">{c.title}</h4>
+          <ul>
+            {c.links.map((l) => (<li><a href={l.href}>{l.t}</a></li>))}
+          </ul>
+        </nav>
+      ))}
+
+      <div class="footer-col">
+        <h4 class="footer-col-t t-label">Liên Hệ</h4>
+        <ul>
+          <li><a href={contact.phoneHref}>{contact.phone}</a></li>
+          <li><a href={contact.emailHref}>{contact.email}</a></li>
+          <li><span>{contact.city}</span></li>
+          <li><a href={contact.facebook} target="_blank" rel="noopener">Fanpage Facebook LexFin</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {year} LexFin Capital — Công ty TNHH MTV Tài chính Pháp lý LexFin</span>
+      <div class="footer-legal">
+        <a href="#top">Chính Sách Bảo Mật</a>
+        <a href="#top">Điều Khoản</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: clamp(60px, 7vw, 92px) 34px; border-top: 1px solid var(--dd); }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 40px;
+    padding-bottom: 48px; border-bottom: 1px solid var(--dd);
+  }
+  .footer-logo { height: 38px; width: auto; margin-bottom: 18px; }
+  .footer-tag { color: var(--ml); font-size: 13.5px; line-height: 1.75; max-width: 320px; }
+  .footer-col-t { color: var(--g400); margin-bottom: 18px; }
+  .footer-col ul { list-style: none; display: grid; gap: 11px; }
+  .footer-col a, .footer-col span { color: var(--ml); font-size: 13.5px; transition: color var(--dur-2); }
+  .footer-col a:hover { color: var(--g400); }
+  .footer-bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px;
+    padding-top: 26px; color: var(--m); font-size: 12.5px;
+  }
+  .footer-legal { display: flex; gap: 22px; }
+  .footer-legal a { color: var(--m); transition: color var(--dur-2); }
+  .footer-legal a:hover { color: var(--g400); }
+  @media (max-width: 860px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
+</style>
